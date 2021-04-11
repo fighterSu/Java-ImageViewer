@@ -17,10 +17,8 @@ import module.Data;
 public class ImageNodeEventHandler {
     public static void setImageNodeMouseClickedEvent(MouseEvent mouseEvent, VBox baseBox, ImageView imageView) {
         if (mouseEvent.getButton() == MouseButton.PRIMARY) {
-            int clickNumber = 2;
-            if (mouseEvent.getClickCount() == clickNumber) {
+            if (mouseEvent.getClickCount() == 2) {
                 // 执行幻灯片播放
-
                 //获取桌面大小
                 Rectangle2D screenRectangle = Screen.getPrimary().getBounds();
                 double width = screenRectangle.getWidth();
