@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainUIController">
+    <center>
+        <SplitPane dividerPositions="0.25" BorderPane.alignment="CENTER">
+            <items>
+                <TreeView fx:id="treeView" minWidth="-Infinity"/>
+                <ScrollPane fx:id="scrollPane">
+                    <content>
+                        <FlowPane fx:id="flowPane" hgap="10.0" vgap="10.0" />
+                    </content>
+                </ScrollPane>
+            </items>
+        </SplitPane>
+    </center>
+    <top>
+        <MenuBar BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Close" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Delete" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Flash">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+    <bottom>
+      <HBox fx:id="bottomPane" alignment="CENTER_LEFT" prefHeight="10.0" prefWidth="1200.0">
+         <children>
+              <HBox fx:id="leftBox" alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="600.0">
+                  <children>
+                      <Text fx:id="tipText" strokeMiterLimit="20.0" strokeType="OUTSIDE" text="提示信息">
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin></Text>
+                  </children>
+              </HBox>
+            <HBox fx:id="rightBox" alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="600.0">
+               <children>
+                      <ImageView fx:id="flashIcon" fitHeight="20.0" fitWidth="55.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <!--无法显示Icon0.png -->
+                        <Image url="@FlashIcon.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+    </bottom>
+</BorderPane>
