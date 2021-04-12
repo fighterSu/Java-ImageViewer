@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
-<?import java.lang.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainUIController">
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainLayoutController">
     <center>
         <SplitPane dividerPositions="0.25" BorderPane.alignment="CENTER">
             <items>
-                <TreeView fx:id="treeView" minWidth="-Infinity"/>
+                <TreeView fx:id="treeView" minWidth="-Infinity" />
                 <ScrollPane fx:id="scrollPane">
                     <content>
                         <FlowPane fx:id="flowPane" hgap="10.0" vgap="10.0" />
@@ -20,44 +19,26 @@
             </items>
         </SplitPane>
     </center>
-    <top>
-        <MenuBar BorderPane.alignment="CENTER">
-            <menus>
-                <Menu mnemonicParsing="false" text="File">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Close" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Delete" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Flash">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="About" />
-                    </items>
-                </Menu>
-            </menus>
-        </MenuBar>
-    </top>
     <bottom>
-      <HBox fx:id="bottomPane" alignment="CENTER_LEFT" prefHeight="10.0" prefWidth="1200.0">
+      <HBox fx:id="bottomPane" alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="1200.0">
          <children>
-              <HBox fx:id="leftBox" alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="600.0">
+              <HBox fx:id="leftBox" alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="600.0">
                   <children>
-                      <Text fx:id="tipText" strokeMiterLimit="20.0" strokeType="OUTSIDE" text="提示信息">
+                      <Text fx:id="tipText" strokeMiterLimit="30.0" strokeType="OUTSIDE" text="提示信息">
                      <HBox.margin>
                         <Insets left="5.0" />
-                     </HBox.margin></Text>
+                     </HBox.margin>
+                     <font>
+                        <Font size="15.0" />
+                     </font></Text>
                   </children>
               </HBox>
-            <HBox fx:id="rightBox" alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="600.0">
+            <HBox fx:id="rightBox" alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="600.0">
                <children>
-                      <ImageView fx:id="flashIcon" fitHeight="20.0" fitWidth="55.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                      <ImageView fx:id="flashIcon" fitHeight="30.0" fitWidth="55.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <!--无法显示Icon0.png -->
-                        <Image url="@FlashIcon.png" />
+                        <Image url="@../image/FlashIcon.png" />
                      </image>
                      <HBox.margin>
                         <Insets right="5.0" />
@@ -68,4 +49,45 @@
          </children>
       </HBox>
     </bottom>
+   <top>
+      <HBox fx:id="topPane" prefHeight="40.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox fx:id="topLeftBox" prefHeight="30.0" prefWidth="300.0" />
+            <HBox fx:id="topRightBox" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="900.0" spacing="10.0">
+               <children>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/Folder.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="2.0">
+                     <children>
+                        <Text fx:id="folderName" strokeType="OUTSIDE"
+                              strokeWidth="0.0" text="文件夹">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="folderInfo" strokeType="OUTSIDE"
+                              strokeWidth="0.0" text="图片信息">
+                           <VBox.margin>
+                              <Insets top="1.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </top>
 </BorderPane>

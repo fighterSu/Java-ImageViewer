@@ -32,8 +32,11 @@ public class TreeViewListener {
             LoadImageNode task = new LoadImageNode(newValue);
             task.setOnSucceeded(workerStateEvent -> {
                 setUnit();
-                Data.tipText.setText(String.format("共 %d 张图片( %.2f %s ) - 共选中 0 张图片",
-                        Data.numberOfImage, Data.sumOfImage, Data.unit));
+                Data.mainLayoutController.getTipText().setText(String.format("共 %d 张图片( %.2f %s ) - 共选中 0 张图片",
+                        Data.imageList.size(), Data.sumOfImage, Data.unit));
+                Data.mainLayoutController.getFolderInfo().setText("共 " +
+                        Data.imageList.size() + " 张图片");
+
             });
             Thread loadImage = new Thread(task);
             loadImage.setDaemon(true);
@@ -46,7 +49,7 @@ public class TreeViewListener {
             // 没有任务运行过，上一个任务已经被取消或者上一个任务已经完成，执行新任务，启动新进程
             if (Data.task == null || Data.task.isCancelled() || Data.task.isDone()) {
                 Data.task = task;
-                Data.flowPane.getChildren().clear();
+                Data.mainLayoutController.getFlowPane().getChildren().clear();
                 loadImage.start();
             }
         });

@@ -61,17 +61,17 @@ public class FlowPaneEventHandler {
                         Data.selectedImageList.add((ImageView) ((Label) ((vBox).getChildren().get(0))).getGraphic());
                     }
                 }
-                Data.tipText.setText(String.format("共 %d 张图片( %.2f %s ) - 共选中 %d 张图片",
-                        Data.numberOfImage, Data.sumOfImage, Data.unit, Data.selectedImageList.size()));
+                Data.mainLayoutController.getTipText().setText(String.format("共 %d 张图片( %.2f %s ) - 共选中 %d 张图片",
+                        Data.imageList.size(), Data.sumOfImage, Data.unit, Data.selectedImageList.size()));
             }
         });
     }
 
 
     /**
-     * @Target test whether the node is in selectRectangle or not
      * @param node is the node that needs test whether it is in selectRectangle
      * @return whether the node is in selectRectangle
+     * @Target test whether the node is in selectRectangle or not
      */
     private boolean isInSelectRectangle(Node node) {
         double nodeHalfSize = 60;

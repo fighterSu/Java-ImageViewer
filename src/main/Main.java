@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import module.Data;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -21,10 +22,10 @@ public class Main extends Application {
 
         //获取桌面大小
         Rectangle2D screenRectangle = Screen.getPrimary().getBounds();
-        double width = screenRectangle.getWidth();
-        double height = screenRectangle.getHeight();
+        Data.screenWidth = screenRectangle.getWidth();
+        Data.screenHeight = screenRectangle.getHeight();
 
-        Scene scene = new Scene(root, 0.8 * width, 0.8 * height);
+        Scene scene = new Scene(root, 0.8 * Data.screenWidth, 0.8 * Data.screenHeight);
         root.prefWidthProperty().bind(scene.widthProperty());
         root.prefHeightProperty().bind(scene.heightProperty());
 

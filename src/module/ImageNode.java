@@ -9,6 +9,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
+
 /**
  * @author Platina
  */
@@ -35,7 +37,13 @@ public class ImageNode extends Node {
         baseBox.getChildren().addAll(imageLabel, nameLabel);
         baseBox.setAlignment(Pos.BOTTOM_CENTER);
         baseBox.setOnMouseClicked(mouseEvent ->
-                ImageNodeEventHandler.setImageNodeMouseClickedEvent(mouseEvent, baseBox, imageView));
+        {
+            try {
+                ImageNodeEventHandler.setImageNodeMouseClickedEvent(mouseEvent, baseBox, imageView);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public VBox getBaseBox() {

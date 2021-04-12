@@ -3,6 +3,7 @@ package module;
 import java.io.File;
 import java.util.ArrayList;
 
+import controller.MainLayoutController;
 import handler.LoadImageNode;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
@@ -14,19 +15,22 @@ import javafx.scene.text.Text;
  * @author Platina
  */
 public class Data {
-    public final static Image FOLDER_ICON = new Image("file:src/layout/Folder.png",
-            20, 20, false, false, false);
+    public final static Image FOLDER_ICON = new Image("file:src/image/Folder" +
+            ".png", 20, 20, false, false, false);
 
     /**
      * 获得fxml里面设计好的界面
      */
-    public static TreeView<File> treeView;
-    public static Text tipText = null;
-    public static FlowPane flowPane;
-    public static int numberOfImage = 0;
     public static double sumOfImage = 0;
     public static String unit = "B";
     public static LoadImageNode task = null;
+    public static MainLayoutController mainLayoutController;
+
+    /**
+     * 定义电脑屏幕大小
+     */
+    public static double screenWidth;
+    public static double screenHeight;
 
     /**
      * 存放选中的图片

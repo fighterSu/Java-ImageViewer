@@ -20,7 +20,7 @@ import java.io.File;
 /**
  * @author Platina
  */
-public class MainUIController {
+public class MainLayoutController {
     @FXML
     public ScrollPane scrollPane;
     public ImageView flashIcon;
@@ -28,6 +28,11 @@ public class MainUIController {
     public HBox bottomPane;
     public HBox leftBox;
     public HBox rightBox;
+    public HBox topPane;
+    public HBox topLeftBox;
+    public HBox topRightBox;
+    public Text folderName;
+    public Text folderInfo;
     @FXML
     private TreeView<File> treeView;
     @FXML
@@ -35,13 +40,13 @@ public class MainUIController {
     @FXML
     private Text tipText;
 
-    public MainUIController() {
+    public MainLayoutController() {
     }
 
     @FXML
     private void initialize() {
-        //初始化数据
-        initData();
+        //获得自动生成的对象
+        Data.mainLayoutController = this;
         // 初始化根目录
         initRootDirectory();
         //绑定大小，拉伸界面时保持主要组件显示
@@ -57,10 +62,10 @@ public class MainUIController {
         Tooltip.install(flashIcon, flashTip);
     }
 
-    private static void initRootDirectory() {
+    private void initRootDirectory() {
         TreeItem<File> rootItem = new TreeItem<>();
-        Data.treeView.setRoot(rootItem);
-        Data.treeView.setShowRoot(false);
+        treeView.setRoot(rootItem);
+        treeView.setShowRoot(false);
         for (File file : File.listRoots()) {
             TreeItem<File> tempItem = new TreeItem<>(file,
                     new ImageView(Data.FOLDER_ICON));
@@ -79,13 +84,26 @@ public class MainUIController {
         //将子VBox宽度绑定到底部VBox的宽度的一半
         leftBox.prefWidthProperty().bind(bottomPane.widthProperty());
         rightBox.prefWidthProperty().bind(bottomPane.widthProperty());
+
+        topLeftBox.prefWidthProperty().bind(topPane.widthProperty().divide(4));
+        topRightBox.prefWidthProperty().bind(topPane.widthProperty().multiply(0.75));
+
+
     }
 
-    private void initData() {
-        // 初始化数据集中的数据
-        Data.treeView = treeView;
-        Data.tipText = tipText;
-        Data.flowPane = flowPane;
+    public Text getTipText() {
+        return tipText;
     }
 
+    public FlowPane getFlowPane() {
+        return flowPane;
+    }
+
+    public Text getFolderInfo() {
+        return folderInfo;
+    }
+
+    public Text getFolderName() {
+        return folderName;
+    }
 }
