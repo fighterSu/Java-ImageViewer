@@ -30,14 +30,6 @@ public class TreeViewListener {
             // 加载时要睡眠
             // 设置为守护线程
             LoadImageNode task = new LoadImageNode(newValue);
-            task.setOnSucceeded(workerStateEvent -> {
-                setUnit();
-                Data.mainLayoutController.getTipText().setText(String.format("共 %d 张图片( %.2f %s ) - 共选中 0 张图片",
-                        Data.imageList.size(), Data.sumOfImage, Data.unit));
-                Data.mainLayoutController.getFolderInfo().setText("共 " +
-                        Data.imageList.size() + " 张图片");
-
-            });
             Thread loadImage = new Thread(task);
             loadImage.setDaemon(true);
 
@@ -50,8 +42,19 @@ public class TreeViewListener {
             if (Data.task == null || Data.task.isCancelled() || Data.task.isDone()) {
                 Data.task = task;
                 Data.mainLayoutController.getFlowPane().getChildren().clear();
+                Data.sumOfImage = 0;
+                Data.selectedImageList.clear();
+                Data.imageList.clear();
                 loadImage.start();
             }
+
+            task.setOnSucceeded(workerStateEvent -> {
+                setUnit();
+                Data.mainLayoutController.getTipText().setText(String.format("共 %d 张图片( %.2f %s ) - 共选中 0 张图片",
+                        Data.imageList.size(), Data.sumOfImage, Data.unit));
+                Data.mainLayoutController.getFolderInfo().setText("共 " +
+                        Data.imageList.size() + " 张图片");
+            });
         });
     }
 
@@ -65,7 +68,6 @@ public class TreeViewListener {
                     // 如果头尾都是叶子，大概率没加载过子节点，重新进行加载
                     // 否则视为加载过的，不再进行加载，提高效率
                     if (itemList.get(0).isLeaf() && itemList.get(itemList.size() - 1).isLeaf()) {
-                        // TODO: 2021/4/6 启动加载子节点的线程
                         addSubItem(e.getTreeItem().getChildren());
                     }
                 });

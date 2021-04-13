@@ -5,7 +5,6 @@ import handler.FlowPaneEventHandler;
 import handler.TreeViewListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.ImageView;
@@ -14,6 +13,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import module.Data;
+import module.ToolTipBox;
 
 import java.io.File;
 
@@ -57,9 +57,7 @@ public class MainLayoutController {
         new FlowPaneEventHandler(flowPane);
         new FlashIconEventHandler(flashIcon);
         // 添加提示信息
-        Tooltip flashTip = new Tooltip("幻灯片播放");
-        flashTip.setStyle("-fx-background-color: #DEDEDE;-fx-text-fill:black;-fx-font-size:14");
-        Tooltip.install(flashIcon, flashTip);
+        ToolTipBox.createToolTip(flashIcon, "幻灯片播放");
     }
 
     private void initRootDirectory() {
@@ -83,11 +81,9 @@ public class MainLayoutController {
         bottomPane.prefWidthProperty().bind(rootPane.widthProperty());
         //将子VBox宽度绑定到底部VBox的宽度的一半
         leftBox.prefWidthProperty().bind(bottomPane.widthProperty());
-        rightBox.prefWidthProperty().bind(bottomPane.widthProperty());
 
-        topLeftBox.prefWidthProperty().bind(topPane.widthProperty().divide(4));
-        topRightBox.prefWidthProperty().bind(topPane.widthProperty().multiply(0.75));
-
+        // 将顶部左VBox的宽度和目录树宽度绑定，实现右VBox和flowPane对齐
+        topLeftBox.prefWidthProperty().bind(treeView.widthProperty());
 
     }
 

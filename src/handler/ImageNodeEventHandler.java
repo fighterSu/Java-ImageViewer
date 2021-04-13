@@ -1,14 +1,9 @@
 package handler;
 
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
 import module.Data;
 import module.Slide;
 
@@ -20,7 +15,8 @@ import java.io.IOException;
 public class ImageNodeEventHandler {
     public static void setImageNodeMouseClickedEvent(MouseEvent mouseEvent, VBox baseBox, ImageView imageView) throws IOException {
         if (mouseEvent.getButton() == MouseButton.PRIMARY) {
-            if (mouseEvent.getClickCount() == 2) {
+            int doubleClick = 2;
+            if (mouseEvent.getClickCount() == doubleClick) {
                 new Slide(Data.imageList.indexOf(imageView));
             } else {
                 boolean hasSelected = "-fx-background-color: #DEDEDE".equals(baseBox.getStyle());

@@ -37,7 +37,6 @@
                <children>
                       <ImageView fx:id="flashIcon" fitHeight="30.0" fitWidth="55.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <!--无法显示Icon0.png -->
                         <Image url="@../image/FlashIcon.png" />
                      </image>
                      <HBox.margin>
@@ -50,9 +49,21 @@
       </HBox>
     </bottom>
    <top>
-      <HBox fx:id="topPane" prefHeight="40.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
+      <HBox fx:id="topPane" prefHeight="40.0" prefWidth="1200.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #FFFFFF;" BorderPane.alignment="CENTER">
          <children>
-            <HBox fx:id="topLeftBox" prefHeight="30.0" prefWidth="300.0" />
+            <HBox fx:id="topLeftBox" alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="300.0" spacing="5.0">
+               <children>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/MyComputer.png" />
+                     </image>
+                  </ImageView>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="我的电脑">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+               </children></HBox>
             <HBox fx:id="topRightBox" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="900.0" spacing="10.0">
                <children>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
@@ -65,8 +76,7 @@
                   </ImageView>
                   <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="2.0">
                      <children>
-                        <Text fx:id="folderName" strokeType="OUTSIDE"
-                              strokeWidth="0.0" text="文件夹">
+                        <Text fx:id="folderName" strokeType="OUTSIDE" strokeWidth="0.0" text="文件夹">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
@@ -74,8 +84,7 @@
                               <Font size="13.0" />
                            </font>
                         </Text>
-                        <Text fx:id="folderInfo" strokeType="OUTSIDE"
-                              strokeWidth="0.0" text="图片信息">
+                        <Text fx:id="folderInfo" strokeType="OUTSIDE" strokeWidth="0.0" text="图片信息">
                            <VBox.margin>
                               <Insets top="1.0" />
                            </VBox.margin>

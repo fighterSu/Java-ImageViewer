@@ -52,6 +52,7 @@ public class SlideLayoutController {
 
     @FXML
     private void flashButtonOnAction() {
+        resetPhoto();
         stopButton.setCancelButton(false);
         timeline.play();
     }
@@ -82,6 +83,7 @@ public class SlideLayoutController {
 
     @FXML
     private void stopButtonOnAction() {
+        stopButton.setStyle("-fx-border-color: #DEDEDE");
         stopButton.setCancelButton(false);
         timeline.stop();
     }
@@ -114,8 +116,7 @@ public class SlideLayoutController {
 
     @FXML
     private void leftArrowButtonOnAction() {
-        scale.setX(1);
-        scale.setY(1);
+        resetPhoto();
         if (indexOfImage == 0) {
             ToolTipBox.createToolTipBox("第一张图片", "已经是本目录的第一张图片");
         } else {
@@ -126,8 +127,7 @@ public class SlideLayoutController {
 
     @FXML
     private void rightArrowButtonOnAction() {
-        scale.setX(1);
-        scale.setY(1);
+        resetPhoto();
         if (indexOfImage == Data.imageList.size() - 1) {
             ToolTipBox.createToolTipBox("最后一张图片", "已经是本目录的最后一张图片");
         } else {
@@ -137,12 +137,15 @@ public class SlideLayoutController {
     }
 
     private void initButton() {
-        setButtonGraphic("flash.png", flashButton);
-        setButtonGraphic("stop.png", stopButton);
-        setButtonGraphic("enlarge.png", enlargeButton);
-        setButtonGraphic("narrow.png", narrowButton);
-        setButtonGraphic("leftArrow.png", leftButton);
-        setButtonGraphic("rightArrow.png", rightButton);
+        String[] imagePaths = {"flash.png", "stop.png", "enlarge.png",
+                "narrow.png", "leftArrow.png", "rightArrow.png"};
+        Button[] buttons = {flashButton, stopButton, enlargeButton,
+                narrowButton, leftButton, rightButton};
+        String[] tipContent = {"播放", "暂停", "放大", "缩小", "上一张图片", "下一张图片"};
+        for(int i = 0; i < buttons.length; i++){
+            setButtonGraphic(imagePaths[i], buttons[i]);
+            ToolTipBox.createToolTip(buttons[i], tipContent[i]);
+        }
     }
 
     private void setButtonGraphic(String imagePath, @NotNull Button button) {
@@ -152,6 +155,11 @@ public class SlideLayoutController {
         tempImageView.setFitWidth(50);
         tempImageView.setFitHeight(50);
         button.setGraphic(tempImageView);
+    }
+
+    private void resetPhoto(){
+        scale.setX(1);
+        scale.setY(1);
     }
 
 }

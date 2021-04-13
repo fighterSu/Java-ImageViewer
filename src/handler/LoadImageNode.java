@@ -22,13 +22,13 @@ public class LoadImageNode extends Task<Number> {
     @Override
     protected Number call() {
         // 多次检测是否被canceled
-        // 加载未完成切换目录
+        // 加载未完成时切换目录
         // 睡眠时被canceled
-        Data.sumOfImage = 0;
-        Data.selectedImageList.clear();
-        Data.imageList.clear();
         Data.mainLayoutController.getFolderName().setText(newValue.getValue().toString());
         File[] files = newValue.getValue().listFiles();
+        if (isCancelled()) {
+            return  null;
+        }
         if (files != null && files.length != 0) {
             for (File file : files) {
                 // 进程被取消，退出加载
@@ -46,9 +46,11 @@ public class LoadImageNode extends Task<Number> {
                         }
                         Data.mainLayoutController.getFlowPane().getChildren().add(tempNode.getBaseBox());
                         Data.sumOfImage += file.length();
-                        Data.mainLayoutController.getTipText().setText(String.format(
-                                "共 %d 张图片( %.2f B ) - 共选中 0 张图片",
-                                Data.imageList.size(), Data.sumOfImage));
+                        Data.mainLayoutController.getTipText().setText(
+                                String.format("共 %d 张图片( %.2f B ) - 共选中 0 张图片",
+                                        Data.imageList.size(), Data.sumOfImage));
+                        Data.mainLayoutController.getFolderInfo().setText("共 " +
+                                Data.imageList.size() + " 张图片");
                         try {
                             Thread.sleep(100);
                         } catch (InterruptedException e) {
