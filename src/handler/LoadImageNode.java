@@ -1,12 +1,10 @@
 package handler;
 
 import java.io.File;
-import java.util.Date;
 
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.control.TreeItem;
-import javafx.scene.image.ImageView;
 import module.Data;
 import module.ImageNode;
 
@@ -18,6 +16,13 @@ public class LoadImageNode extends Task<Number> {
 
     public LoadImageNode(TreeItem<File> newValue) {
         this.newValue = newValue;
+        this.setOnSucceeded(workerStateEvent -> {
+            setTheUnitOfTheTotalSizeOfThePicture();
+            Data.mainLayoutController.getTipText().setText(String.format("共 %d 张图片( %.2f %s ) - 共选中 0 张图片",
+                    Data.imageNodesList.size(), Data.sumOfImage, Data.unit));
+            Data.mainLayoutController.getFolderInfo().setText("共 " +
+                    Data.imageNodesList.size() + " 张图片");
+        });
     }
 
     @Override
@@ -52,9 +57,6 @@ public class LoadImageNode extends Task<Number> {
                                         Data.sumOfImage));
                         Data.mainLayoutController.getFolderInfo().setText("共 " +
                                 Data.imageNodesList.size() + " 张图片");
-                        if (isCancelled()) {
-                            return;
-                        }
                         try {
                             // 睡眠一段时间，让UI线程处理其它任务
                             Thread.sleep(100);
@@ -71,10 +73,38 @@ public class LoadImageNode extends Task<Number> {
         return null;
     }
 
+    /**
+     * determine whether the file is an image file
+     * @param file is the file needed to determine
+     * @return whether the file is image file or not
+     */
     private boolean isImageFile(File file) {
         String fileName = file.getName().toLowerCase();
         return (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg")
                 || fileName.endsWith(".gif") || fileName.endsWith(".png")
                 || fileName.endsWith(".bmp"));
+    }
+
+    /**
+     * 设置图像文件总大小的单位
+     */
+    private static void setTheUnitOfTheTotalSizeOfThePicture() {
+        String unit = "B";
+        int kb = 1024;
+        int mb = 1024 * 1024;
+        int gb = 1024 * 1024 * 1024;
+        if (Data.sumOfImage >= gb) {
+            Data.sumOfImage /= gb;
+            unit = "GB";
+        } else {
+            if (Data.sumOfImage >= mb) {
+                Data.sumOfImage /= mb;
+                unit = "MB";
+            } else if (Data.sumOfImage >= kb) {
+                Data.sumOfImage /= kb;
+                unit = "KB";
+            }
+        }
+        Data.unit = unit;
     }
 }

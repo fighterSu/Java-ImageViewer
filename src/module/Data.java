@@ -1,9 +1,11 @@
 package module;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import controller.MainLayoutController;
 import handler.LoadImageNode;
+import javafx.scene.control.TreeItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -17,6 +19,7 @@ public class Data {
     public static double sumOfImage = 0;
     public static String unit = "B";
     public static LoadImageNode task = null;
+    public static TreeItem<File> nowItem;
     public static MainLayoutController mainLayoutController;
 
     /**
@@ -29,12 +32,11 @@ public class Data {
      * 存放选中的图片
      */
     public static ArrayList<ImageView> selectedImageList = new ArrayList<>();
-    public static ArrayList<ImageView> selectedImageNodesList = new ArrayList<>();
 
     /**
      * 存放复制或者剪贴的图片
      */
-    public static ArrayList<ImageView> copyImageList = new ArrayList<>();
+    public static ArrayList<File> copyImageList = new ArrayList<>();
 
     /**
      * 存放该目录下所有图片，用于幻灯片播放

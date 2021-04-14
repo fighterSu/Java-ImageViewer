@@ -17,18 +17,19 @@ import java.io.IOException;
  */
 public class ImageNode extends Node {
     private final ImageView imageView;
-    private final Labeled imageLabel = new Label();
     private final Labeled nameLabel = new Label();
     private final VBox baseBox = new VBox(10);
-    private File imageFile;
+    private final File imageFile;
 
     public ImageNode(File imageFile) {
+        this.imageFile = imageFile;
         imageView = new ImageView(new Image("file:" + imageFile.getAbsolutePath()));
         imageView.setSmooth(true);
         imageView.setCache(true);
         imageView.setFitWidth(110);
         imageView.setFitHeight(110);
         imageView.setPreserveRatio(true);
+        Labeled imageLabel = new Label();
         imageLabel.setGraphic(imageView);
         imageLabel.setAlignment(Pos.CENTER);
         nameLabel.setPrefSize(110, 10);
@@ -45,14 +46,11 @@ public class ImageNode extends Node {
                 e.printStackTrace();
             }
         });
+        new MyContextMenu(baseBox, true);
     }
 
     public VBox getBaseBox() {
         return baseBox;
-    }
-
-    public Labeled getImageLabel() {
-        return imageLabel;
     }
 
     public Labeled getNameLabel() {
@@ -61,5 +59,9 @@ public class ImageNode extends Node {
 
     public ImageView getImageView() {
         return imageView;
+    }
+
+    public File getImageFile() {
+        return imageFile;
     }
 }

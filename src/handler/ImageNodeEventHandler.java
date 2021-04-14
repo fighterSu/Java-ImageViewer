@@ -1,9 +1,7 @@
 package handler;
 
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 import module.Data;
 import module.ImageNode;
 import module.Slide;

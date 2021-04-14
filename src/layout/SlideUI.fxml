@@ -12,7 +12,7 @@
       <ImageView fx:id="photo" fitHeight="240.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
    </center>
    <bottom>
-      <GridPane alignment="CENTER" prefHeight="100.0" prefWidth="600.0" style="-fx-background-color: #DEDEDE;" BorderPane.alignment="CENTER">
+      <GridPane alignment="CENTER" prefHeight="100.0" prefWidth="600.0" style="-fx-background-color: #FFFFFF" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="430.0" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="538.0" minWidth="10.0" prefWidth="100.0" />
