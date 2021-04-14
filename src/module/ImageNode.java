@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -17,21 +18,21 @@ import java.io.IOException;
 public class ImageNode extends Node {
     private final ImageView imageView;
     private final Labeled imageLabel = new Label();
+    private final Labeled nameLabel = new Label();
     private final VBox baseBox = new VBox(10);
+    private File imageFile;
 
-    public ImageNode(String imageName, String imagePath) {
-        imageView = new ImageView(new Image("file:" + imagePath));
+    public ImageNode(File imageFile) {
+        imageView = new ImageView(new Image("file:" + imageFile.getAbsolutePath()));
         imageView.setSmooth(true);
         imageView.setCache(true);
         imageView.setFitWidth(110);
         imageView.setFitHeight(110);
         imageView.setPreserveRatio(true);
         imageLabel.setGraphic(imageView);
-        imageLabel.setPrefSize(110, 110);
         imageLabel.setAlignment(Pos.CENTER);
-        Label nameLabel = new Label();
         nameLabel.setPrefSize(110, 10);
-        nameLabel.setText(imageName);
+        nameLabel.setText(imageFile.getName());
         nameLabel.setAlignment(Pos.CENTER);
         baseBox.setPrefSize(120, 120);
         baseBox.getChildren().addAll(imageLabel, nameLabel);
@@ -39,7 +40,7 @@ public class ImageNode extends Node {
         baseBox.setOnMouseClicked(mouseEvent ->
         {
             try {
-                ImageNodeEventHandler.setImageNodeMouseClickedEvent(mouseEvent, baseBox, imageView);
+                ImageNodeEventHandler.setImageNodeMouseClickedEvent(mouseEvent, this);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -54,4 +55,11 @@ public class ImageNode extends Node {
         return imageLabel;
     }
 
+    public Labeled getNameLabel() {
+        return nameLabel;
+    }
+
+    public ImageView getImageView() {
+        return imageView;
+    }
 }

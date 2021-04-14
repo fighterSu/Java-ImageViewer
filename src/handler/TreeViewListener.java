@@ -1,5 +1,6 @@
 package handler;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
@@ -26,35 +27,8 @@ public class TreeViewListener {
      */
     private void addTreeViewListener() {
         treeView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-            // 切换目录时检测是否存在正在运行的任务，如果存在则取消之前的任务
-            // 加载时要睡眠
-            // 设置为守护线程
-            LoadImageNode task = new LoadImageNode(newValue);
-            Thread loadImage = new Thread(task);
-            loadImage.setDaemon(true);
-
-            // 判断是否已经有Task在运行，有就cancel掉
-            if (Data.task != null && Data.task.isRunning()) {
-                Data.task.cancel();
-            }
-
-            // 没有任务运行过，上一个任务已经被取消或者上一个任务已经完成，执行新任务，启动新进程
-            if (Data.task == null || Data.task.isCancelled() || Data.task.isDone()) {
-                Data.task = task;
-                Data.mainLayoutController.getFlowPane().getChildren().clear();
-                Data.sumOfImage = 0;
-                Data.selectedImageList.clear();
-                Data.imageList.clear();
-                loadImage.start();
-            }
-
-            task.setOnSucceeded(workerStateEvent -> {
-                setUnit();
-                Data.mainLayoutController.getTipText().setText(String.format("共 %d 张图片( %.2f %s ) - 共选中 0 张图片",
-                        Data.imageList.size(), Data.sumOfImage, Data.unit));
-                Data.mainLayoutController.getFolderInfo().setText("共 " +
-                        Data.imageList.size() + " 张图片");
-            });
+            Data.mainLayoutController.getFolderName().setText(newValue.getValue().toString());
+            loadImage(newValue);
         });
     }
 
@@ -94,21 +68,56 @@ public class TreeViewListener {
     }
 
     /**
+     * 启动加载图片的线程
+     * @param nowValue is the node of the directory to be loaded
+     */
+    public static void loadImage(TreeItem<File> nowValue) {
+        LoadImageNode task = new LoadImageNode(nowValue);
+        Thread loadImage = new Thread(task);
+        // 设置为守护线程
+        loadImage.setDaemon(true);
+
+        // 判断是否已经有Task在运行，有就cancel掉
+        if (Data.task != null && Data.task.isRunning()) {
+            Data.task.cancel();
+        }
+
+        // 没有任务运行过，上一个任务已经被取消或者上一个任务已经完成，执行新任务，启动新进程
+        if (Data.task == null || Data.task.isCancelled() || Data.task.isDone()) {
+            Data.task = task;
+            Data.mainLayoutController.getFlowPane().getChildren().clear();
+            Data.sumOfImage = 0;
+            Data.selectedImageList.clear();
+            Data.imageNodesList.clear();
+            loadImage.start();
+        }
+
+        task.setOnSucceeded(workerStateEvent -> {
+            setUnit();
+            Data.mainLayoutController.getTipText().setText(String.format("共 %d 张图片( %.2f %s ) - 共选中 0 张图片",
+                    Data.imageNodesList.size(), Data.sumOfImage, Data.unit));
+            Data.mainLayoutController.getFolderInfo().setText("共 " +
+                    Data.imageNodesList.size() + " 张图片");
+            System.out.println(Data.imageNodesList);
+        });
+    }
+
+    /**
      * 设置图像文件总大小的单位
      */
-    private void setUnit() {
+    private static void setUnit() {
         String unit = "B";
         int kb = 1024;
         int mb = 1024 * 1024;
         int gb = 1024 * 1024 * 1024;
-        if (Data.sumOfImage > gb) {
+        if (Data.sumOfImage >= gb) {
             Data.sumOfImage /= gb;
             unit = "GB";
         } else {
-            if (Data.sumOfImage > mb) {
+            if (Data.sumOfImage >= mb) {
                 Data.sumOfImage /= mb;
                 unit = "MB";
-            } else if (Data.sumOfImage > kb) {
+            } else if (Data.sumOfImage >= kb) {
                 Data.sumOfImage /= kb;
                 unit = "KB";
             }

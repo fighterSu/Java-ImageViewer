@@ -62,11 +62,11 @@ public class SlideLayoutController {
         KeyFrame keyFrame = new KeyFrame(Duration.millis(1000), e -> {
             indexOfImage++;
             //实现循环播放
-            if (Data.imageList != null && indexOfImage == Data.imageList.size()) {
+            if (Data.imageNodesList != null && indexOfImage == Data.imageNodesList.size()) {
                 indexOfImage = 0;
             }
-            if (Data.imageList != null) {
-                photo.setImage(Data.imageList.get(indexOfImage).getImage());
+            if (Data.imageNodesList != null) {
+                photo.setImage(Data.imageNodesList.get(indexOfImage).getImageView().getImage());
             }
         });
         timeline = new Timeline(keyFrame);
@@ -121,18 +121,18 @@ public class SlideLayoutController {
             ToolTipBox.createToolTipBox("第一张图片", "已经是本目录的第一张图片");
         } else {
             indexOfImage--;
-            photo.setImage(Data.imageList.get(indexOfImage).getImage());
+            photo.setImage(Data.imageNodesList.get(indexOfImage).getImageView().getImage());
         }
     }
 
     @FXML
     private void rightArrowButtonOnAction() {
         resetPhoto();
-        if (indexOfImage == Data.imageList.size() - 1) {
+        if (indexOfImage == Data.imageNodesList.size() - 1) {
             ToolTipBox.createToolTipBox("最后一张图片", "已经是本目录的最后一张图片");
         } else {
             indexOfImage++;
-            photo.setImage(Data.imageList.get(indexOfImage).getImage());
+            photo.setImage(Data.imageNodesList.get(indexOfImage).getImageView().getImage());
         }
     }
 

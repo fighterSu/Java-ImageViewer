@@ -64,7 +64,8 @@
                      </font>
                   </Text>
                </children></HBox>
-            <HBox fx:id="topRightBox" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="900.0" spacing="10.0">
+            <HBox fx:id="topRightBox" alignment="CENTER_LEFT"
+                  prefHeight="100.0" prefWidth="400.0" spacing="10.0">
                <children>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>

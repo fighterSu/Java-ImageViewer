@@ -29,6 +29,7 @@ public class Data {
      * 存放选中的图片
      */
     public static ArrayList<ImageView> selectedImageList = new ArrayList<>();
+    public static ArrayList<ImageView> selectedImageNodesList = new ArrayList<>();
 
     /**
      * 存放复制或者剪贴的图片
@@ -38,5 +39,5 @@ public class Data {
     /**
      * 存放该目录下所有图片，用于幻灯片播放
      */
-    public static ArrayList<ImageView> imageList = new ArrayList<>();
+    public static ArrayList<ImageNode> imageNodesList = new ArrayList<>();
 }

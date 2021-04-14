@@ -1,6 +1,7 @@
 package handler;
 
 import java.io.File;
+import java.util.Date;
 
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -24,7 +25,6 @@ public class LoadImageNode extends Task<Number> {
         // 多次检测是否被canceled
         // 加载未完成时切换目录
         // 睡眠时被canceled
-        Data.mainLayoutController.getFolderName().setText(newValue.getValue().toString());
         File[] files = newValue.getValue().listFiles();
         if (isCancelled()) {
             return  null;
@@ -36,8 +36,8 @@ public class LoadImageNode extends Task<Number> {
                     break;
                 }
                 if (file.isFile() && isImageFile(file)) {
-                    ImageNode tempNode = new ImageNode(file.getName(), file.getAbsolutePath());
-                    Data.imageList.add((ImageView) tempNode.getImageLabel().getGraphic());
+                    ImageNode tempNode = new ImageNode(file);
+                    Data.imageNodesList.add(tempNode);
                     // 更新UI
                     Platform.runLater(() -> {
                         // 如果任务取消，结束运行
@@ -48,10 +48,15 @@ public class LoadImageNode extends Task<Number> {
                         Data.sumOfImage += file.length();
                         Data.mainLayoutController.getTipText().setText(
                                 String.format("共 %d 张图片( %.2f B ) - 共选中 0 张图片",
-                                        Data.imageList.size(), Data.sumOfImage));
+                                        Data.imageNodesList.size(),
+                                        Data.sumOfImage));
                         Data.mainLayoutController.getFolderInfo().setText("共 " +
-                                Data.imageList.size() + " 张图片");
+                                Data.imageNodesList.size() + " 张图片");
+                        if (isCancelled()) {
+                            return;
+                        }
                         try {
+                            // 睡眠一段时间，让UI线程处理其它任务
                             Thread.sleep(100);
                         } catch (InterruptedException e) {
                             if (isCancelled()) {

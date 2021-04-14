@@ -44,7 +44,7 @@ public class ToolTipBox {
     /**
      * add a tooltip to the node
      * @param node is the node needed to add the tooltip
-     * @param contents the contents of the tooltip
+     * @param contents is he contents of the tooltip
      */
     public static void createToolTip(Node node, String contents){
         Tooltip tooltip = new Tooltip(contents);

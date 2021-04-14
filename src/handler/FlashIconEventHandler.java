@@ -16,7 +16,7 @@ public class FlashIconEventHandler {
     public FlashIconEventHandler(ImageView flashIcon) {
         flashIcon.setOnMouseClicked(mouseEvent -> {
             if (mouseEvent.getButton() == MouseButton.PRIMARY) {
-                if (Data.imageList.isEmpty()) {
+                if (Data.imageNodesList.isEmpty()) {
                     ToolTipBox.createToolTipBox("无可播放图片", "暂无可播放图片，请在有图片的目录下点击幻灯片播放图标");
                 } else {
                     // 播放幻灯片

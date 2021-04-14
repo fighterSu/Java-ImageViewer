@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 public class Slide {
     public Slide(int indexOfImage) throws IOException {
-        ImageView imageView = new ImageView(Data.imageList.get(indexOfImage).getImage());
+        ImageView imageView = new ImageView(Data.imageNodesList.get(indexOfImage).getImageView().getImage());
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/layout/SlideUI.fxml"));
         BorderPane pptPane = loader.load();

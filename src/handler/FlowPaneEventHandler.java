@@ -62,7 +62,8 @@ public class FlowPaneEventHandler {
                     }
                 }
                 Data.mainLayoutController.getTipText().setText(String.format("共 %d 张图片( %.2f %s ) - 共选中 %d 张图片",
-                        Data.imageList.size(), Data.sumOfImage, Data.unit, Data.selectedImageList.size()));
+                        Data.imageNodesList.size(), Data.sumOfImage, Data.unit,
+                        Data.selectedImageList.size()));
             }
         });
     }
