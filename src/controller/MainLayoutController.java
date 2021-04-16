@@ -59,7 +59,6 @@ public class MainLayoutController {
         new FlashIconEventHandler(flashIcon);
         // 添加提示信息
         ToolTipBox.createToolTip(flashIcon, "幻灯片播放");
-        new MyContextMenu(flowPane, false);
     }
 
     private void initRootDirectory() {

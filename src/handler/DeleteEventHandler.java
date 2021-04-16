@@ -6,7 +6,6 @@ import module.Data;
 import module.ToolTipBox;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Optional;
 
@@ -14,7 +13,7 @@ import java.util.Optional;
  * @author Platina
  */
 public class DeleteEventHandler {
-    public DeleteEventHandler() throws IOException {
+    public DeleteEventHandler() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("确认删除");
         alert.setHeaderText("确定要删除选中的图片吗?");
@@ -22,16 +21,26 @@ public class DeleteEventHandler {
 
         Optional<ButtonType> result = alert.showAndWait();
 
-        if (result.isPresent() && result.get() == ButtonType.OK){
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            boolean deleteSucceed = true;
             Data.mainLayoutController.getFlowPane().getChildren().clear();
             for (ImageView imageView : Data.selectedImageList) {
                 String imagePath = imageView.getImage().getUrl();
                 File imageFile =
                         new File(imagePath.substring(imagePath.indexOf(":") + 1));
-                Files.delete(imageFile.toPath());
+                try {
+                    Files.delete(imageFile.toPath());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    ToolTipBox.createToolTipBox("删除失败", "出现了一些错误，删除图片失败");
+                    deleteSucceed = false;
+                    break;
+                }
             }
             TreeViewListener.loadImage(Data.nowItem);
-            ToolTipBox.createToolTipBox("删除图片成功", "成功删除选中图片");
+            if (deleteSucceed) {
+                ToolTipBox.createToolTipBox("删除图片成功", "成功删除选中图片");
+            }
         }
     }
 }

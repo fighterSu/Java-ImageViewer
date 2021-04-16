@@ -58,7 +58,7 @@ public class FlowPaneEventHandler {
                     if (isInSelectRectangle(child)) {
                         VBox vBox = (VBox) child;
                         vBox.setStyle("-fx-background-color: #DEDEDE");
-                        Data.selectedImageList.add((ImageView) ((Label) ((vBox).getChildren().get(0))).getGraphic());
+                        Data.selectedImageList.add((ImageView) ((Label) (vBox.getChildren().get(0))).getGraphic());
                     }
                 }
                 Data.mainLayoutController.getTipText().setText(String.format("共 %d 张图片( %.2f %s ) - 共选中 %d 张图片",
@@ -90,8 +90,8 @@ public class FlowPaneEventHandler {
      * clear the selected state of ImageNode in the flowPane
      */
     private void setMouseClickBlank() {
-        flowPane.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
-            Node clickNode = e.getPickResult().getIntersectedNode();
+        flowPane.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            Node clickNode = mouseEvent.getPickResult().getIntersectedNode();
             if (!(clickNode instanceof Label)
                     && !(clickNode instanceof Text)
                     && !(clickNode instanceof VBox)) {

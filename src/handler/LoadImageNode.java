@@ -22,17 +22,15 @@ public class LoadImageNode extends Task<Number> {
                     Data.imageNodesList.size(), Data.sumOfImage, Data.unit));
             Data.mainLayoutController.getFolderInfo().setText("共 " +
                     Data.imageNodesList.size() + " 张图片");
+            Data.mainLayoutController.getFlowPane().requestFocus();
         });
     }
 
     @Override
     protected Number call() {
-        // 多次检测是否被canceled
-        // 加载未完成时切换目录
-        // 睡眠时被canceled
         File[] files = newValue.getValue().listFiles();
         if (isCancelled()) {
-            return  null;
+            return null;
         }
         if (files != null && files.length != 0) {
             for (File file : files) {
@@ -75,6 +73,7 @@ public class LoadImageNode extends Task<Number> {
 
     /**
      * determine whether the file is an image file
+     *
      * @param file is the file needed to determine
      * @return whether the file is image file or not
      */

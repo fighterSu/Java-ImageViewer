@@ -4,10 +4,12 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import module.Data;
+import module.MyContextMenu;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -26,6 +28,8 @@ public class Main extends Application {
         Data.screenHeight = screenRectangle.getHeight();
 
         Scene scene = new Scene(root, 0.8 * Data.screenWidth, 0.8 * Data.screenHeight);
+        Data.scene = scene;
+        new MyContextMenu(Data.mainLayoutController.getFlowPane(), false);
         root.prefWidthProperty().bind(scene.widthProperty());
         root.prefHeightProperty().bind(scene.heightProperty());
 
@@ -33,7 +37,6 @@ public class Main extends Application {
         primaryStage.setTitle("电⼦图⽚管理程序");
         primaryStage.show();
     }
-
 
     public static void main(String[] args) {
         launch(args);
