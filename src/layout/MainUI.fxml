@@ -36,7 +36,9 @@
               </HBox>
             <HBox fx:id="rightBox" alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="600.0">
                <children>
-                      <ImageView fx:id="flashIcon" fitHeight="30.0" fitWidth="55.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                      <ImageView fx:id="flashIcon" onMouseClicked="#flashIconMouseClickedEvent"
+                                 fitHeight="30.0"
+                                 fitWidth="55.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../image/FlashIcon.png" />
                      </image>

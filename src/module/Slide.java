@@ -11,6 +11,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
+ * this class is used to load SlideLayout and inits some necessary data
  * @author Platina
  */
 public class Slide {
@@ -22,6 +23,7 @@ public class Slide {
 
 		SlideLayoutController controller = loader.getController();
 		controller.setPhoto(imageView);
+		// 根据Index设置时间轴
 		controller.setTimeLine(indexOfImage);
 
 		imageView.setSmooth(true);

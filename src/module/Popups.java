@@ -50,7 +50,7 @@ public class Popups {
 	 */
 	public static void createToolTip(Node node, String contents) {
 		Tooltip tooltip = new Tooltip(contents);
-		tooltip.setStyle("-fx-background-color: #white;-fx-text-fill:black;" + "-fx-font-size:15");
+		tooltip.setStyle("-fx-background-color: white;-fx-text-fill:black;" + "-fx-font-size:15");
 		Tooltip.install(node, tooltip);
 	}
 
@@ -106,7 +106,7 @@ public class Popups {
 					Platform.runLater(dialog::close);
 				}
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				Popups.showExceptionDialog(e);
 			}
 		});
 		closeDialogThread.setDaemon(true);

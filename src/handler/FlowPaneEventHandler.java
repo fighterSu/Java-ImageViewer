@@ -12,19 +12,36 @@ import javafx.scene.text.Text;
 import module.Data;
 
 /**
+ * this class is used to add event handlers to flowPane
  * @author Platina
  */
 public class FlowPaneEventHandler {
 	private final FlowPane flowPane;
+
+	/**
+	 * selectedRectangle is used to judge
+	 * whether a imageNode is selected or not
+	 */
 	private final Rectangle selectRectangle = new Rectangle(0, 0, Paint.valueOf("#DEDEDE"));
 	private boolean isDragged;
 
+	/**
+	 * 初始化信息
+	 * @param flowPane is the flowPane want to add event handlers
+	 */
 	public FlowPaneEventHandler(FlowPane flowPane) {
 		this.flowPane = flowPane;
 		setMouseClickBlank();
 		addDraggedListener();
 	}
 
+	/**
+	 * 设置flowPane的鼠标拖拽事件
+	 * 按下鼠标时记录当前鼠标所在位置，并初始化选择矩形的位置
+	 * 开始拖动后，标记拖动
+	 * 鼠标释放，如果之前标记是在拖动，则获取当前鼠标位置
+	 * 判断哪些图片节点与选择矩形相交
+	 */
 	private void addDraggedListener() {
 		// 按下鼠标记录鼠标坐标，并初始化选中的矩形
 		flowPane.addEventHandler(MouseEvent.MOUSE_PRESSED, mouseEvent -> {
