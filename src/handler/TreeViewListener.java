@@ -15,6 +15,7 @@ import module.Data;
  */
 public class TreeViewListener {
     private final TreeView<File> treeView;
+    private static LoadImageNode currentTask = null;
 
     public TreeViewListener(TreeView<File> treeView) {
         this.treeView = treeView;
@@ -32,16 +33,12 @@ public class TreeViewListener {
             Data.mainLayoutController.getFolderName().setText(newValue.getValue().toString());
             Data.mainLayoutController.getFlowPane().getChildren().clear();
             // 判断是否已经有Task在运行，有就cancel掉
-            if (Data.task != null && Data.task.isRunning()) {
-                Data.task.cancel();
+            if (currentTask != null && currentTask.isRunning()) {
+                currentTask.cancel();
             }
             // 没有任务运行过，上一个任务已经被取消或者上一个任务已经完成，执行新任务，加载新目录
-            if (Data.task == null || Data.task.isCancelled() || Data.task.isDone()) {
-                if (!Data.mainLayoutController.getFlowPane().getChildren().isEmpty()) {
-                    Data.mainLayoutController.getFlowPane().getChildren().clear();
-                } else {
-                    loadImage(newValue);
-                }
+            if (currentTask == null || currentTask.isCancelled() || currentTask.isDone()) {
+                loadImage(newValue);
             }
         });
     }
@@ -89,11 +86,12 @@ public class TreeViewListener {
         Data.sumOfImage = 0;
         Data.selectedImageList.clear();
         Data.imageNodesList.clear();
-        LoadImageNode task = new LoadImageNode(nowValue);
-        Thread loadImage = new Thread(task);
-        // 设置为守护线程
+
+        LoadImageNode newTask = new LoadImageNode(nowValue);
+        Thread loadImage = new Thread(newTask);
         loadImage.setDaemon(true);
-        Data.task = task;
+        currentTask = newTask;
+
         Data.mainLayoutController.getFlowPane().getChildren().clear();
         loadImage.start();
     }
@@ -108,7 +106,7 @@ public class TreeViewListener {
                         super.updateItem(file, empty);
                         if (!empty) {
                             String fileName = file.getName();
-                            if("".equals(fileName)){
+                            if ("".equals(fileName)) {
                                 fileName = file.getPath();
                             }
                             this.setText(fileName);

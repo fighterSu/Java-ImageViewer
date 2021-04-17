@@ -33,14 +33,13 @@ public class Data {
 	public static String unit;
 
 	/**
-	 * 记录当前正在运行的任务 用于切换目录是判断上个任务的状态
-	 */
-	public static LoadImageNode task = null;
-
-	/**
 	 * 记录当前所在目录树节点，用与获取粘贴目标文件夹
 	 */
 	public static TreeItem<File> nowItem;
+
+	/**
+	 * 记录自动生成的主布局的控制器类对象
+	 */
 	public static MainLayoutController mainLayoutController;
 
 	/**

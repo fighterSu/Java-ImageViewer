@@ -15,10 +15,10 @@ import module.Popups;
  * @author Platina
  */
 public class LoadImageNode extends Task<Number> {
-    private final TreeItem<File> newValue;
+    private final File[] files;
 
     public LoadImageNode(TreeItem<File> newValue) {
-        this.newValue = newValue;
+        files = newValue.getValue().listFiles();
         // 任务完成更新提示框信息
         this.setOnSucceeded(workerStateEvent -> {
             setTheUnitOfTheTotalSizeOfThePicture();
@@ -31,43 +31,32 @@ public class LoadImageNode extends Task<Number> {
 
     @Override
     protected Number call() {
-        File[] files = newValue.getValue().listFiles();
-        if (isCancelled()) {
-            return null;
-        }
-        Data.imageNodesList.clear();
-        if (files != null && files.length != 0) {
-            for (File file : files) {
-                // 进程被取消，退出加载
-                if (isCancelled()) {
-                    break;
-                }
-                if (file.isFile() && isImageFile(file)) {
-                    ImageNode tempNode = new ImageNode(file);
-                    Data.imageNodesList.add(tempNode);
-                    // 更新UI
-                    Platform.runLater(() -> {
-                        // 如果任务取消，结束运行
-                        if (isCancelled()) {
-                            Data.imageNodesList.clear();
-                            return;
-                        }
-                        Data.mainLayoutController.getFlowPane().getChildren().add(tempNode.getBaseBox());
-                        Data.sumOfImage += file.length();
-                        Data.mainLayoutController.getTipText().setText(String.format("共 %d 张图片( %.2f B ) - 共选中 0 张图片",
-                                Data.imageNodesList.size(), Data.sumOfImage));
-                        Data.mainLayoutController.getFolderInfo().setText("共 " + Data.imageNodesList.size() + " 张图片");
-                        try {
-                            // 睡眠一段时间，让UI线程处理其它任务
-                            Thread.sleep(100);
-                        } catch (InterruptedException e) {
-                            if (isCancelled()) {
-                                Data.imageNodesList.clear();
-                                return;
-                            }
-                            Popups.showExceptionDialog(e);
-                        }
-                    });
+        for (File file : files) {
+            if (this.isCancelled()) {
+                break;
+            }
+            if (file.isFile() && isImageFile(file)) {
+                ImageNode tempNode = new ImageNode(file);
+                Data.imageNodesList.add(tempNode);
+                // 更新UI
+                Platform.runLater(() -> {
+                    // 如果任务取消，结束运行
+                    if (this.isCancelled()) {
+                        return;
+                    }
+                    Data.mainLayoutController.getFlowPane().getChildren().add(tempNode.getBaseBox());
+                    Data.sumOfImage += file.length();
+                    Data.mainLayoutController.getTipText().setText(String.format("共 %d 张图片( %.2f B ) - 共选中 0 张图片",
+                            Data.imageNodesList.size(), Data.sumOfImage));
+                    Data.mainLayoutController.getFolderInfo().setText("共 " + Data.imageNodesList.size() + " 张图片");
+                });
+                try {
+                    // 睡眠一段时间，让UI线程处理其它任务
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    if (isCancelled()) {
+                        break;
+                    }
                 }
             }
         }

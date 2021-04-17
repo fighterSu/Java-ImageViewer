@@ -48,6 +48,7 @@ public class PasteEventHandler {
             if (!targetPath.toString().endsWith("\\")) {
                 targetPath.append('\\');
             }
+
             try (FileInputStream fileInput = new FileInputStream(file);
                  FileOutputStream fileOutput = new FileOutputStream(targetPath + fileName)) {
                 byte[] bytes = new byte[fileInput.available()];
