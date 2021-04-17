@@ -45,8 +45,9 @@ public class DeleteEventHandler {
 			// 重新加载该目录下的图片节点
 			TreeViewListener.loadImage(Data.nowItem);
 			if (deleteSucceed) {
-				Popups.createToolTipBox("删除图片成功", "成功删除选中图片", -1, -1);
-			}
+                Popups.createToolTipBox("删除图片成功", "成功删除选中图片", -1, -1);
+                Data.numberOfRepeatedPaste = 1;
+            }
 		}
 	}
 

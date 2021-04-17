@@ -17,12 +17,12 @@ import module.Popups;
 public class PasteEventHandler {
     public PasteEventHandler() {
         // 粘贴地址
-        String targetPath = Data.nowItem.getValue().getPath();
+        StringBuilder targetPath = new StringBuilder(Data.nowItem.getValue().getPath());
         // 是否在同一目录粘贴
-        boolean inTheSameFolder = isInTheSameFolder(targetPath);
+        boolean inTheSameFolder = isInTheSameFolder(targetPath.toString());
         // 粘贴成功
         boolean pasteSucceed = true;
-        if (!targetPath.equals(Data.lastTargetPath)) {
+        if (!targetPath.toString().equals(Data.lastTargetPath)) {
             Data.numberOfRepeatedPaste = 0;
         }
 
@@ -45,6 +45,9 @@ public class PasteEventHandler {
                 fileName = getFilePrefixName(fileName) + addedString + getFileSuffixName(fileName);
             }
 
+            if (!targetPath.toString().endsWith("\\")) {
+                targetPath.append('\\');
+            }
             try (FileInputStream fileInput = new FileInputStream(file);
                  FileOutputStream fileOutput = new FileOutputStream(targetPath + fileName)) {
                 byte[] bytes = new byte[fileInput.available()];
@@ -62,7 +65,7 @@ public class PasteEventHandler {
         if (pasteSucceed) {
             Popups.createToolTipBox("粘贴图片成功", "成功粘贴所复制图片", -1, -1);
             Data.numberOfRepeatedPaste++;
-            Data.lastTargetPath = targetPath;
+            Data.lastTargetPath = targetPath.toString();
         }
 
     }
