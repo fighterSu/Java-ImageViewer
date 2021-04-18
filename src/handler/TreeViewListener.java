@@ -8,7 +8,7 @@ import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.ImageView;
-import module.Data;
+import modules.Data;
 
 /**
  * @author Platina

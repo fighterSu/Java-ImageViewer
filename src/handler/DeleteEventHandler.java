@@ -7,8 +7,8 @@ import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
-import module.Data;
-import module.Popups;
+import modules.Data;
+import modules.Popups;
 
 /**
  * the class is used to delete a image file

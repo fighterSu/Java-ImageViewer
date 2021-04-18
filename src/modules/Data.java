@@ -1,10 +1,9 @@
-package module;
+package modules;
 
 import java.io.File;
 import java.util.ArrayList;
 
 import controller.MainLayoutController;
-import handler.LoadImageNode;
 import javafx.scene.Scene;
 import javafx.scene.control.TreeItem;
 import javafx.scene.image.Image;
@@ -13,14 +12,14 @@ import javafx.stage.Stage;
 
 /**
  * 记录一些应用过程之中多处需要用到的数据结构
- * 
+ *
  * @author Platina
  */
 public class Data {
 	/**
 	 * 目录树文件夹图标
 	 */
-	public final static Image FOLDER_ICON = new Image("file:src/image/Folder" + ".png", 20, 20, false, false, false);
+	public final static Image FOLDER_ICON = new Image("image/Folder.png", 20, 20, false, false, false);
 
 	/**
 	 * 指示当前目录图片文件总大小

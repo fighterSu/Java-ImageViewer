@@ -9,8 +9,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.transform.Scale;
 import javafx.util.Duration;
-import module.Data;
-import module.Popups;
+import modules.Data;
+import modules.Popups;
 
 /**
  * the class for handling slide stage
@@ -78,7 +78,7 @@ public class SlideLayoutController {
     public void setTimeLine(int index) {
         indexOfImage = index;
         // 设置 1s 切换一张图片
-        KeyFrame keyFrame = new KeyFrame(Duration.millis(1000), e -> {
+        KeyFrame keyFrame = new KeyFrame(Duration.millis(1500), e -> {
             indexOfImage++;
             // 实现循环播放
             if (Data.imageNodesList != null && indexOfImage == Data.imageNodesList.size()) {

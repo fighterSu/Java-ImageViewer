@@ -4,9 +4,9 @@ import java.io.IOException;
 
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import module.Data;
-import module.ImageNode;
-import module.Slide;
+import modules.Data;
+import modules.ImageNode;
+import modules.Slide;
 
 /**
  * this class is used to add MouseClickListener and

@@ -5,9 +5,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import module.Data;
-import module.ImageNode;
-import module.Popups;
+import modules.Data;
+import modules.ImageNode;
+import modules.Popups;
 
 /**
  * this class is define the event handler for paste event

@@ -1,4 +1,4 @@
-package module;
+package modules;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

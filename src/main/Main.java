@@ -10,8 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import module.Data;
-import module.MyContextMenu;
+import modules.Data;
+import modules.MyContextMenu;
 
 /**
  * @author Platina
@@ -20,7 +20,6 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws IOException {
 		BorderPane root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/layout/MainUI.fxml")));
-
 		// 获取桌面大小
 		Rectangle2D screenRectangle = Screen.getPrimary().getBounds();
 		Data.screenWidth = screenRectangle.getWidth();

@@ -5,9 +5,8 @@ import java.io.File;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.control.TreeItem;
-import module.Data;
-import module.ImageNode;
-import module.Popups;
+import modules.Data;
+import modules.ImageNode;
 
 /**
  * this class is used to load images from selected directory

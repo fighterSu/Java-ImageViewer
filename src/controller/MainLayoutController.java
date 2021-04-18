@@ -16,9 +16,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
-import module.Data;
-import module.Popups;
-import module.Slide;
+import modules.Data;
+import modules.Popups;
+import modules.Slide;
 
 /**
  * the controller of MainUI.xml

@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import module.Data;
+import modules.Data;
 
 /**
  * this class is used to add event handlers to flowPane
