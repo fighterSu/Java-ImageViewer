@@ -54,21 +54,19 @@ public class RenameEventHandler {
             String newFilename;
             if (result.isPresent()) {
                 newFilename = result.get();
+                // 非法输入
                 String invalidInput = "[^/:*?\\\\<>\"]+";
                 if (!newFilename.matches(invalidInput)) {
-                    String warningMessage;
+                    String warningMessage = "";
                     if (newFilename.length() == 0) {
                         warningMessage = "输入文件名不能为空！";
-                    } else {
-                        warningMessage = "输入的文件名非法，不能含有下列字符 " +
-                                "\n / : * ? \\ \" < >";
                     }
-                    Popups.createToolTipBox("输入文件名非法", warningMessage, dialog.getX(),
-                            dialog.getY() + dialog.getWidth());
                     dialog.setTitle("输入文件名非法，请重新输入！");
-                    dialog.setHeaderText("输入文件名非法，不能包含右侧任何字符 / : * ? \\ \" < >");
+                    dialog.setHeaderText("输入文件名非法," + warningMessage +
+                            "\n文件名不能包含右侧任何字符 / : * ? \\ \" < >");
                     continue;
                 }
+                // 输入文件名与原文件名相同，直接返回
                 if (newFilename.equals(getFilePrefixName(targetImageNode.getImageFile().getName()))) {
                     return;
                 }
