@@ -50,6 +50,9 @@ public class ImageNodeEventHandler {
         }
     }
 
+    /**
+     * 清除选中状态
+     */
     public static void clearSelectedState() {
         for (int i = 0; i < Data.selectedImageList.size(); i++) {
             Data.selectedImageList.get(i).getParent().getParent().setStyle("-fx-background-color: white");

@@ -161,7 +161,11 @@ public class RenameEventHandler {
                 }
 
                 if (startNumbers > maxStartNumbers) {
-                    warningMessage += "起始编号过大，最大为：" + maxStartNumbers;
+                    if (maxStartNumbers < 0) {
+                        warningMessage += "编号位数过少，最少为：" + (int) Math.ceil(Math.log10(selectedImageNodes.length)) + "位";
+                    } else {
+                        warningMessage += "起始编号过大，最大为：" + maxStartNumbers;
+                    }
                     allInputsAreValid = false;
                 }
 

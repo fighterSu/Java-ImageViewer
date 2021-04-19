@@ -21,21 +21,23 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws IOException {
 		BorderPane root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/layout/MainUI.fxml")));
 		// 获取桌面大小
-		Rectangle2D screenRectangle = Screen.getPrimary().getBounds();
-		Data.screenWidth = screenRectangle.getWidth();
-		Data.screenHeight = screenRectangle.getHeight();
+        Rectangle2D screenRectangle = Screen.getPrimary().getBounds();
+        Data.screenWidth = screenRectangle.getWidth();
+        Data.screenHeight = screenRectangle.getHeight();
 
-		Scene scene = new Scene(root, 0.8 * Data.screenWidth, 0.8 * Data.screenHeight);
-		Data.scene = scene;
-		Data.stage = primaryStage;
-		new MyContextMenu(Data.mainLayoutController.getFlowPane(), false);
-		root.prefWidthProperty().bind(scene.widthProperty());
-		root.prefHeightProperty().bind(scene.heightProperty());
+        Scene scene = new Scene(root, 0.8 * Data.screenWidth, 0.8 * Data.screenHeight);
+        Data.scene = scene;
+        Data.stage = primaryStage;
+        new MyContextMenu(Data.mainLayoutController.getFlowPane(), false);
+        root.prefWidthProperty().bind(scene.widthProperty());
+        root.prefHeightProperty().bind(scene.heightProperty());
+        Data.mainLayoutController.getAnchorPane().prefHeightProperty().bind(root.widthProperty().subtract(100));
+        Data.mainLayoutController.getAnchorPane().prefWidthProperty().bind(root.heightProperty().subtract(70));
 
-		primaryStage.setScene(scene);
-		primaryStage.setTitle("电⼦图⽚管理程序");
-		primaryStage.show();
-	}
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("电⼦图⽚管理程序");
+        primaryStage.show();
+    }
 
 	public static void main(String[] args) {
 		launch(args);

@@ -182,7 +182,7 @@ public class SlideLayoutController {
      * @param button    is the button needed to set graphic
      */
     private void setButtonGraphic(String imagePath, Button button) {
-        ImageView tempImageView = new ImageView("file:src/image/" + imagePath);
+        ImageView tempImageView = new ImageView("image/" + imagePath);
         tempImageView.setSmooth(true);
         tempImageView.setCache(true);
         tempImageView.setFitWidth(50);

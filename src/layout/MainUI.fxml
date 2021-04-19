@@ -1,22 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainLayoutController">
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0"
+            prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.MainLayoutController">
     <center>
         <SplitPane dividerPositions="0.25" BorderPane.alignment="CENTER">
             <items>
-                <TreeView fx:id="treeView" minWidth="-Infinity" />
-                <ScrollPane fx:id="scrollPane">
-                    <content>
-                        <FlowPane fx:id="flowPane" hgap="10.0" style="-fx-background-color: #FFFFFF" vgap="10.0" />
-                    </content>
-                </ScrollPane>
+                <TreeView fx:id="treeView" minWidth="-Infinity"/>
+                <AnchorPane fx:id="anchorPane">
+                    <children>
+                        <ScrollPane fx:id="scrollPane"
+                                    style="-fx-border-color: white"
+                                    fitToHeight="true"
+                                    fitToWidth="true"
+                                    AnchorPane.bottomAnchor="0.0"
+                                    AnchorPane.leftAnchor="0.0"
+                                    AnchorPane.rightAnchor="0.0"
+                                    AnchorPane.topAnchor="0.0">
+                            <content>
+                                <FlowPane fx:id="flowPane" hgap="10.0"
+                                          style="-fx-background-color: #FFFFFF"
+                                          vgap="10.0"/>
+                            </content>
+                        </ScrollPane>
+                    </children>
+                </AnchorPane>
             </items>
         </SplitPane>
     </center>
@@ -36,16 +52,17 @@
               </HBox>
             <HBox fx:id="rightBox" alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="600.0">
                <children>
-                      <ImageView fx:id="flashIcon" onMouseClicked="#flashIconMouseClickedEvent"
-                                 fitHeight="30.0"
-                                 fitWidth="55.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../image/FlashIcon.png" />
-                     </image>
-                     <HBox.margin>
-                        <Insets right="5.0" />
-                     </HBox.margin>
-                  </ImageView>
+                   <ImageView fx:id="flashIcon" fitHeight="30.0" fitWidth="55.0"
+                              nodeOrientation="INHERIT"
+                              onMouseClicked="#flashIconMouseClickedEvent"
+                              pickOnBounds="true" preserveRatio="true">
+                       <image>
+                           <Image url="@../image/FlashIcon.png"/>
+                       </image>
+                       <HBox.margin>
+                           <Insets right="5.0"/>
+                       </HBox.margin>
+                   </ImageView>
                </children>
             </HBox>
          </children>

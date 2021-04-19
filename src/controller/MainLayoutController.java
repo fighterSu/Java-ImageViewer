@@ -12,6 +12,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -39,6 +40,7 @@ public class MainLayoutController {
     public HBox topRightBox;
     public Text folderName;
     public Text folderInfo;
+    public AnchorPane anchorPane;
     @FXML
     private TreeView<File> treeView;
     @FXML
@@ -128,5 +130,9 @@ public class MainLayoutController {
 
     public Text getFolderName() {
         return folderName;
+    }
+
+    public AnchorPane getAnchorPane() {
+        return anchorPane;
     }
 }
