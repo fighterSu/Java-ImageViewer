@@ -91,7 +91,6 @@ public class FlowPaneEventHandler {
                 }
                 selectRectangle.setLayoutY(nowMouseY);
                 selectRectangle.setHeight(selectorY - nowMouseY);
-                return;
             }
             // 往左上
             if (nowMouseX < selectorX && nowMouseY < selectorY) {
