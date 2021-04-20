@@ -69,6 +69,7 @@ public class FlowPaneEventHandler {
 
             // 右下拖拽
             if (nowMouseX > selectorX && nowMouseY > selectorY) {
+                // 没有拖拽大过边界
                 if (nowMouseX < anchorPane.getWidth()) {
                     selectRectangle.setWidth(nowMouseX - selectorX);
                 }
@@ -77,6 +78,7 @@ public class FlowPaneEventHandler {
 
             // 左下
             if (nowMouseX < selectorX && nowMouseY > selectorY) {
+                // 没有拖拽离开边界
                 if (nowMouseX > 0) {
                     selectRectangle.setLayoutX(nowMouseX);
                     selectRectangle.setWidth(selectorX - nowMouseX);
@@ -86,15 +88,16 @@ public class FlowPaneEventHandler {
 
             // 往右上
             if (selectorX < nowMouseX && nowMouseY < selectorY) {
+                // 没有拖拽大过边界
                 if (nowMouseX < anchorPane.getWidth()) {
                     selectRectangle.setWidth(nowMouseX - selectorX);
                 }
                 selectRectangle.setLayoutY(nowMouseY);
                 selectRectangle.setHeight(selectorY - nowMouseY);
-                return;
             }
             // 往左上
             if (nowMouseX < selectorX && nowMouseY < selectorY) {
+                // 没有拖拽离开边界
                 if (0 < nowMouseX) {
                     selectRectangle.setLayoutX(nowMouseX);
                     selectRectangle.setWidth(selectorX - nowMouseX);
