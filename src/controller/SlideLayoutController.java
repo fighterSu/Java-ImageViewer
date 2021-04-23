@@ -66,7 +66,6 @@ public class SlideLayoutController {
     @FXML
     private void flashButtonOnAction() {
         resetPhoto();
-        stopButton.setCancelButton(false);
         timeline.play();
     }
 
@@ -102,8 +101,6 @@ public class SlideLayoutController {
 
     @FXML
     private void stopButtonOnAction() {
-        stopButton.setStyle("-fx-border-color: #DEDEDE");
-        stopButton.setCancelButton(false);
         timeline.stop();
     }
 

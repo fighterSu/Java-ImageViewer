@@ -47,12 +47,12 @@ public class TreeViewListener {
      * 添加加载两层目录到点击节点事件
      */
     private void addMouseClickedEventHandler() {
-        treeView.getRoot().addEventHandler(TreeItem.<File>branchExpandedEvent(), e -> {
-            ObservableList<TreeItem<File>> itemList = e.getTreeItem().getChildren();
+        treeView.getRoot().addEventHandler(TreeItem.<File>branchExpandedEvent(), event -> {
+            ObservableList<TreeItem<File>> itemList = event.getTreeItem().getChildren();
             // 如果头尾都是叶子，大概率没加载过子节点，重新进行加载
             // 否则视为加载过的，不再进行加载，提高效率
             if (itemList.get(0).isLeaf() && itemList.get(itemList.size() - 1).isLeaf()) {
-                addSubItem(e.getTreeItem().getChildren());
+                addSubItem(event.getTreeItem().getChildren());
             }
         });
     }
