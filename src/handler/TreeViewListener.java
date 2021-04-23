@@ -52,7 +52,7 @@ public class TreeViewListener {
             // 如果头尾都是叶子，大概率没加载过子节点，重新进行加载
             // 否则视为加载过的，不再进行加载，提高效率
             if (itemList.get(0).isLeaf() && itemList.get(itemList.size() - 1).isLeaf()) {
-                addSubItem(event.getTreeItem().getChildren());
+                addSubItem(itemList);
             }
         });
     }
@@ -65,8 +65,7 @@ public class TreeViewListener {
     public static void addSubItem(ObservableList<TreeItem<File>> itemList) {
         for (TreeItem<File> item : itemList) {
             File[] tempFiles = item.getValue().listFiles();
-            assert tempFiles != null;
-            if (tempFiles.length != 0) {
+            if (tempFiles != null && tempFiles.length != 0) {
                 for (File file : tempFiles) {
                     if (file.isDirectory() && Files.isReadable(file.toPath()) && !file.isHidden()) {
                         TreeItem<File> tempItem = new TreeItem<>(file);
