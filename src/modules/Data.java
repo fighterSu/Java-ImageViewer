@@ -1,14 +1,13 @@
 package modules;
 
-import java.io.File;
-import java.util.ArrayList;
-
 import controller.MainLayoutController;
 import javafx.scene.Scene;
 import javafx.scene.control.TreeItem;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+
+import java.io.File;
+import java.util.ArrayList;
 
 /**
  * 记录一些应用过程之中多处需要用到的数据结构
@@ -16,11 +15,6 @@ import javafx.stage.Stage;
  * @author Platina
  */
 public class Data {
-	/**
-	 * 目录树文件夹图标
-	 */
-	public final static Image FOLDER_ICON = new Image("image/Folder.png", 20, 20, false, false, false);
-
 	/**
 	 * 指示当前目录图片文件总大小
 	 */
@@ -44,12 +38,12 @@ public class Data {
 	/**
 	 * 记录Main函数里面的Scene 用于添加快捷键
 	 */
-	public static Scene scene;
+	public static Scene primaryScene;
 
 	/**
 	 * 记录Main函数里面的Stage 用于子窗口绑定
 	 */
-	public static Stage stage;
+	public static Stage primaryStage;
 
 	/**
 	 * 记录同一个文件夹里面，重复复制一批文件地次数，用于添加序号

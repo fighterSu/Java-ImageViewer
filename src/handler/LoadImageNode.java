@@ -1,12 +1,12 @@
 package handler;
 
-import java.io.File;
-
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.control.TreeItem;
 import modules.Data;
 import modules.ImageNode;
+
+import java.io.File;
 
 /**
  * this class is used to load images from selected directory
@@ -18,12 +18,11 @@ public class LoadImageNode extends Task<Number> {
 
     public LoadImageNode(TreeItem<File> newValue) {
         files = newValue.getValue().listFiles();
-        // 任务完成更新提示框信息
+        // 任务完成更新提示信息
         this.setOnSucceeded(workerStateEvent -> {
             setTheUnitOfTheTotalSizeOfThePicture();
             Data.mainLayoutController.getTipText().setText(String.format("共 %d 张图片( %.2f %s ) - 共选中 0 张图片",
                     Data.imageNodesList.size(), Data.sumOfImage, Data.unit));
-            Data.mainLayoutController.getFolderInfo().setText("共 " + Data.imageNodesList.size() + " 张图片");
             Data.mainLayoutController.getFlowPane().requestFocus();
         });
     }
@@ -34,7 +33,7 @@ public class LoadImageNode extends Task<Number> {
             if (this.isCancelled()) {
                 break;
             }
-            if (file.isFile() && isImageFile(file)) {
+            if (isImageFile(file)) {
                 ImageNode tempNode = new ImageNode(file);
                 Data.imageNodesList.add(tempNode);
                 // 更新UI
@@ -70,30 +69,32 @@ public class LoadImageNode extends Task<Number> {
      */
     private boolean isImageFile(File file) {
         String fileName = file.getName().toLowerCase();
-        return (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".gif")
+        return file.isFile() && (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".gif")
                 || fileName.endsWith(".png") || fileName.endsWith(".bmp"));
     }
 
     /**
      * 设置图像文件总大小的单位
      */
-    private static void setTheUnitOfTheTotalSizeOfThePicture() {
+    private void setTheUnitOfTheTotalSizeOfThePicture() {
+        double sumSizeOfImages = Data.sumOfImage;
         String unit = "B";
         int kb = 1024;
         int mb = 1024 * 1024;
         int gb = 1024 * 1024 * 1024;
-        if (Data.sumOfImage >= gb) {
-            Data.sumOfImage /= gb;
+        if (sumSizeOfImages >= gb) {
+            sumSizeOfImages /= gb;
             unit = "GB";
         } else {
-            if (Data.sumOfImage >= mb) {
-                Data.sumOfImage /= mb;
+            if (sumSizeOfImages >= mb) {
+                sumSizeOfImages /= mb;
                 unit = "MB";
-            } else if (Data.sumOfImage >= kb) {
-                Data.sumOfImage /= kb;
+            } else if (sumSizeOfImages >= kb) {
+                sumSizeOfImages /= kb;
                 unit = "KB";
             }
         }
         Data.unit = unit;
+        Data.sumOfImage = sumSizeOfImages;
     }
 }

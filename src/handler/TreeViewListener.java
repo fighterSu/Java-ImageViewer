@@ -1,14 +1,15 @@
 package handler;
 
-import java.io.File;
-import java.nio.file.Files;
-
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import modules.Data;
+
+import java.io.File;
+import java.nio.file.Files;
 
 /**
  * @author Platina
@@ -31,11 +32,13 @@ public class TreeViewListener {
         treeView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
             Data.nowItem = newValue;
             Data.mainLayoutController.getFolderName().setText(newValue.getValue().toString());
-            Data.mainLayoutController.getFlowPane().getChildren().clear();
+            Data.mainLayoutController.getFolderInfo().setText("共 0 张图片");
+
             // 判断是否已经有Task在运行，有就cancel掉
             if (currentTask != null && currentTask.isRunning()) {
                 currentTask.cancel();
             }
+
             // 没有任务运行过，上一个任务已经被取消或者上一个任务已经完成，执行新任务，加载新目录
             if (currentTask == null || currentTask.isCancelled() || currentTask.isDone()) {
                 loadImage(newValue);
@@ -109,7 +112,8 @@ public class TreeViewListener {
                                 fileName = file.getPath();
                             }
                             this.setText(fileName);
-                            this.setGraphic(new ImageView(Data.FOLDER_ICON));
+                            Image folderIcon = new Image("image/Folder.png", 20, 20, false, false, false);
+                            this.setGraphic(new ImageView(folderIcon));
                         } else {
                             this.setText("");
                             this.setGraphic(null);

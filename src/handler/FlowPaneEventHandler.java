@@ -19,7 +19,15 @@ import modules.Data;
  */
 public class FlowPaneEventHandler {
     private final FlowPane flowPane;
+
+    /**
+     * 定义画板
+     */
     private final AnchorPane anchorPane;
+
+    /**
+     * 定义记录鼠标按下位置的变量
+     */
     private double selectorX, selectorY;
 
     /**
@@ -27,6 +35,10 @@ public class FlowPaneEventHandler {
      * whether a imageNode is selected or not
      */
     private final Rectangle selectRectangle = new Rectangle(0, 0, Paint.valueOf("#9FC1E3AA"));
+
+    /**
+     * 判断是否是在进行拖拽选择，在空白处释放时不清除图片选中状态
+     */
     private boolean isDragged;
 
     /**
@@ -106,6 +118,7 @@ public class FlowPaneEventHandler {
                 selectRectangle.setHeight(selectorY - nowMouseY);
             }
 
+            // 清除选中状态，选中在矩形范围内的图片节点
             ImageNodeEventHandler.clearSelectedState();
             for (Node child : flowPane.getChildren()) {
                 if (isInSelectRectangle(child)) {

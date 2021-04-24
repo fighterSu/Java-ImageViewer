@@ -51,9 +51,6 @@ public class SlideLayoutController {
         photo.getTransforms().add(scale);
     }
 
-    public SlideLayoutController() {
-    }
-
     @FXML
     private void initialize() {
         // 初始化按钮的图片和布局
@@ -69,6 +66,11 @@ public class SlideLayoutController {
         timeline.play();
     }
 
+    @FXML
+    private void stopButtonOnAction() {
+        timeline.stop();
+    }
+
     /**
      * 根据点击的图片或者第一张图片设置时间轴，用于幻灯片播放
      *
@@ -77,7 +79,7 @@ public class SlideLayoutController {
     public void setTimeLine(int index) {
         indexOfImage = index;
         // 设置 1s 切换一张图片
-        KeyFrame keyFrame = new KeyFrame(Duration.millis(1500), e -> {
+        KeyFrame keyFrame = new KeyFrame(Duration.millis(1500), event -> {
             indexOfImage++;
             // 实现循环播放
             if (Data.imageNodesList != null && indexOfImage == Data.imageNodesList.size()) {
@@ -90,18 +92,14 @@ public class SlideLayoutController {
         timeline = new Timeline(keyFrame);
         timeline.setCycleCount(Timeline.INDEFINITE);
         // 点击图片暂停播放
-        photo.setOnMouseClicked(e -> {
+        photo.setOnMouseClicked(mouseEvent -> {
             if (timeline.getStatus() == Animation.Status.PAUSED) {
                 timeline.play();
             } else {
                 timeline.pause();
             }
         });
-    }
 
-    @FXML
-    private void stopButtonOnAction() {
-        timeline.stop();
     }
 
     @FXML

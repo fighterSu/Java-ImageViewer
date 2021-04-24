@@ -1,7 +1,5 @@
 package modules;
 
-import java.io.IOException;
-
 import controller.SlideLayoutController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,8 +8,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 /**
  * this class is used to load SlideLayout and inits some necessary data
+ *
  * @author Platina
  */
 public class Slide {
@@ -36,7 +37,7 @@ public class Slide {
 		Scene scene = new Scene(pptPane, 0.8 * Data.screenWidth, 0.8 * Data.screenHeight);
 
 		Stage pptStage = new Stage();
-		pptStage.initOwner(Data.stage);
+		pptStage.initOwner(Data.primaryStage);
 		pptStage.initModality(Modality.WINDOW_MODAL);
 		pptStage.setScene(scene);
 		pptStage.setTitle("幻灯片播放界面");

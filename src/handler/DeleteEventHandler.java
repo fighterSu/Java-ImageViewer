@@ -1,18 +1,19 @@
 package handler;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.util.Optional;
-
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
 import modules.Data;
 import modules.Popups;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.util.Optional;
+
 /**
  * the class is used to delete a image file
  * and judge whether delete success or not
+ *
  * @author Platina
  */
 public class DeleteEventHandler {
@@ -24,7 +25,6 @@ public class DeleteEventHandler {
 		alert.setContentText("删除操作不可撤销");
 
 		Optional<ButtonType> result = alert.showAndWait();
-
 		if (result.isPresent() && result.get() == ButtonType.OK) {
 			boolean deleteSucceed = true;
 			Data.mainLayoutController.getFlowPane().getChildren().clear();
@@ -42,10 +42,12 @@ public class DeleteEventHandler {
 					break;
 				}
 			}
+
 			// 重新加载该目录下的图片节点
 			TreeViewListener.loadImage(Data.nowItem);
 			if (deleteSucceed) {
                 Popups.createToolTipBox("删除图片成功", "成功删除选中图片", -1, -1);
+				// 重置复制次数
                 Data.numberOfRepeatedPaste = 1;
             }
 		}

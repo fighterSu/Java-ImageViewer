@@ -1,10 +1,5 @@
 package handler;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Optional;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -19,6 +14,11 @@ import javafx.stage.Stage;
 import modules.Data;
 import modules.ImageNode;
 import modules.Popups;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Optional;
 
 /**
  * this class is used to handle paste events
@@ -44,7 +44,7 @@ public class RenameEventHandler {
         String targetImageName = targetImageNode.getImageFile().getName();
         TextInputDialog dialog = new TextInputDialog(
                 targetImageName.substring(0, targetImageName.lastIndexOf('.')));
-        dialog.initOwner(Data.stage);
+        dialog.initOwner(Data.primaryStage);
         dialog.initModality(Modality.WINDOW_MODAL);
         dialog.setTitle("重命名文件");
         dialog.setHeaderText("文件名不能包含右侧任何字符 / : * ? \\ \" < >");
@@ -55,8 +55,8 @@ public class RenameEventHandler {
             if (result.isPresent()) {
                 newFilename = result.get();
                 // 非法输入
-                String invalidInput = "[^/:*?\\\\<>\"]+";
-                if (!newFilename.matches(invalidInput)) {
+                String validInput = "[^/:*?\\\\<>\"]+";
+                if (!newFilename.matches(validInput)) {
                     String warningMessage = "";
                     if (newFilename.length() == 0) {
                         warningMessage = "输入文件名不能为空！";
@@ -70,6 +70,7 @@ public class RenameEventHandler {
                 if (newFilename.equals(getFilePrefixName(targetImageNode.getImageFile().getName()))) {
                     return;
                 }
+
                 Path targetFilePath = targetImageNode.getImageFile().toPath();
                 boolean renameSucceed = true;
                 try {
@@ -79,6 +80,7 @@ public class RenameEventHandler {
                     Popups.showExceptionDialog(e);
                     renameSucceed = false;
                 }
+
                 if (renameSucceed) {
                     Popups.createToolTipBox("重命名成功", "成功重命名选中文件", -1, -1);
                     TreeViewListener.loadImage(Data.nowItem);
@@ -122,7 +124,7 @@ public class RenameEventHandler {
             stage.setTitle("批量重命名");
             stage.initModality(Modality.WINDOW_MODAL);
             stage.setAlwaysOnTop(true);
-            stage.initOwner(Data.stage);
+            stage.initOwner(Data.primaryStage);
             stage.show();
             setButtonOnAction();
             setTextFieldAction();
@@ -136,23 +138,26 @@ public class RenameEventHandler {
                 int maxStartNumbers = 0;
                 boolean allInputsAreValid = true;
                 String warningMessage = "";
-                // 判断是否输入非法字符
+
+                // 判断是否名称前缀是否输入非法字符
                 String validInput = "[^/:*?\\\\<>\"]+";
                 if (!imageNamePrefix.getText().matches(validInput)) {
                     warningMessage += "名称前缀：不能包含右侧任何字符 / : * ? \\ \" < >\n";
                     allInputsAreValid = false;
                 }
 
-                String positiveInteger = "[0-9]+";
-                if (!startNumber.getText().matches(positiveInteger)) {
+                // 判断是否起始编号是否输入非法
+                String nonNegativeInteger = "[0-9]+";
+                if (!startNumber.getText().matches(nonNegativeInteger)) {
                     warningMessage += "起始编号：请输入一个正整数！\n";
                     allInputsAreValid = false;
                 } else {
                     startNumbers = Integer.parseInt(startNumber.getText());
                 }
 
-                String nonNegativeInteger = "[1-9]";
-                if (!numberOfDigits.getText().matches(nonNegativeInteger)) {
+                // 判断是否编号位数是否输入非法
+                String positiveInteger = "[1-9]";
+                if (!numberOfDigits.getText().matches(positiveInteger)) {
                     warningMessage += "编号位数：请输入1-9之间的一个整数！";
                     allInputsAreValid = false;
                 } else {
@@ -189,6 +194,7 @@ public class RenameEventHandler {
                         }
                         indexOfImageFile++;
                     }
+
                     if (renameSucceed) {
                         Popups.createToolTipBox("重命名成功", "成功重命名选中文件", stage.getX(), stage.getY() + stage.getHeight() + 10);
                         stage.close();

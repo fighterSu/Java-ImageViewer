@@ -1,7 +1,5 @@
 package modules;
 
-import java.io.File;
-
 import handler.DeleteEventHandler;
 import handler.PasteEventHandler;
 import handler.RenameEventHandler;
@@ -10,13 +8,11 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+
+import java.io.File;
 
 /**
  * @author Platina
@@ -38,9 +34,9 @@ public class MyContextMenu {
         MenuItem copyItem = new MenuItem("复制");
         MenuItem renameItem = new MenuItem("重命名");
         contextMenu.getItems().addAll(deleteItem, copyItem, renameItem);
-        node.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
-            if (e.getButton() == MouseButton.SECONDARY) {
-                contextMenu.show(node, e.getScreenX(), e.getScreenY());
+        node.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            if (mouseEvent.getButton() == MouseButton.SECONDARY) {
+                contextMenu.show(node, mouseEvent.getScreenX(), mouseEvent.getScreenY());
             } else {
                 if (contextMenu.isShowing()) {
                     contextMenu.hide();
@@ -57,7 +53,7 @@ public class MyContextMenu {
         });
 
         KeyCombination deleteKeyCombination = new KeyCodeCombination(KeyCode.D, KeyCombination.CONTROL_DOWN);
-        Data.scene.getAccelerators().put(deleteKeyCombination, deleteItem::fire);
+        Data.primaryScene.getAccelerators().put(deleteKeyCombination, deleteItem::fire);
         deleteItem.setAccelerator(deleteKeyCombination);
 
         copyItem.setOnAction(actionEvent -> {
@@ -78,7 +74,7 @@ public class MyContextMenu {
         });
 
         KeyCombination copyKeyCombination = new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN);
-        Data.scene.getAccelerators().put(copyKeyCombination, copyItem::fire);
+        Data.primaryScene.getAccelerators().put(copyKeyCombination, copyItem::fire);
         copyItem.setAccelerator(copyKeyCombination);
 
         renameItem.setOnAction(actionEvent -> {
@@ -90,7 +86,7 @@ public class MyContextMenu {
         });
 
         KeyCombination renameKeyCombination = new KeyCodeCombination(KeyCode.F2);
-        Data.scene.getAccelerators().put(renameKeyCombination, renameItem::fire);
+        Data.primaryScene.getAccelerators().put(renameKeyCombination, renameItem::fire);
         renameItem.setAccelerator(renameKeyCombination);
     }
 
@@ -130,11 +126,11 @@ public class MyContextMenu {
         });
 
         KeyCombination pasteKeyCombination = new KeyCodeCombination(KeyCode.V, KeyCombination.CONTROL_DOWN);
-        Data.scene.getAccelerators().put(pasteKeyCombination, pasteItem::fire);
+        Data.primaryScene.getAccelerators().put(pasteKeyCombination, pasteItem::fire);
         pasteItem.setAccelerator(pasteKeyCombination);
 
         KeyCombination selectAllKeyCombination = new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_DOWN);
-        Data.scene.getAccelerators().put(selectAllKeyCombination, selectAllItem::fire);
+        Data.primaryScene.getAccelerators().put(selectAllKeyCombination, selectAllItem::fire);
         selectAllItem.setAccelerator(selectAllKeyCombination);
     }
 }

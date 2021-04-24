@@ -1,13 +1,10 @@
 package handler;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 import modules.Data;
 import modules.ImageNode;
 import modules.Popups;
+
+import java.io.*;
 
 /**
  * this class is define the event handler for paste event
@@ -28,6 +25,7 @@ public class PasteEventHandler {
 
         for (File file : Data.copyImageList) {
             String fileName = file.getName();
+
             if (inTheSameFolder) {
                 fileName = getFilePrefixName(fileName) + " - 副本" + getFileSuffixName(fileName);
             }
@@ -49,11 +47,12 @@ public class PasteEventHandler {
                 targetPath.append('\\');
             }
 
-            try (FileInputStream fileInput = new FileInputStream(file);
-                 FileOutputStream fileOutput = new FileOutputStream(targetPath + fileName)) {
-                byte[] bytes = new byte[fileInput.available()];
-                if (fileInput.read(bytes) != -1) {
-                    fileOutput.write(bytes);
+            try (BufferedInputStream fileInput = new BufferedInputStream(new FileInputStream(file));
+                 BufferedOutputStream fileOutput = new BufferedOutputStream(new FileOutputStream(targetPath + fileName))) {
+                byte[] bytes = new byte[1024];
+                int i;
+                while ((i = fileInput.read(bytes)) != -1) {
+                    fileOutput.write(bytes, 0, i);
                 }
             } catch (IOException e) {
                 Popups.showExceptionDialog(e);
@@ -62,7 +61,9 @@ public class PasteEventHandler {
                 break;
             }
         }
+
         TreeViewListener.loadImage(Data.nowItem);
+
         if (pasteSucceed) {
             Popups.createToolTipBox("粘贴图片成功", "成功粘贴所复制图片", -1, -1);
             Data.numberOfRepeatedPaste++;

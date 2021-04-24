@@ -1,11 +1,9 @@
 package controller;
 
-import java.io.File;
-import java.io.IOException;
-
 import handler.FlowPaneEventHandler;
 import handler.TreeViewListener;
 import javafx.fxml.FXML;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
@@ -17,9 +15,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import modules.Data;
 import modules.Popups;
 import modules.Slide;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * the controller of MainUI.xml
@@ -48,21 +50,26 @@ public class MainLayoutController {
     @FXML
     private Text tipText;
 
-    public MainLayoutController() {
-    }
-
     @FXML
     private void initialize() {
+        // 获取桌面大小
+        Rectangle2D screenRectangle = Screen.getPrimary().getBounds();
+        Data.screenWidth = screenRectangle.getWidth();
+        Data.screenHeight = screenRectangle.getHeight();
+
         // 获得自动生成的对象
         Data.mainLayoutController = this;
+
         // 初始化根目录
         initRootDirectory();
+
         // 绑定大小，拉伸界面时保持主要组件显示
         bindLayout();
 
         // 添加事件监听
         new TreeViewListener(treeView);
         new FlowPaneEventHandler(flowPane);
+
         // 添加提示信息
         Popups.createToolTip(flashIcon, "幻灯片播放");
     }
@@ -75,7 +82,7 @@ public class MainLayoutController {
         treeView.setRoot(rootItem);
         treeView.setShowRoot(false);
         for (File file : File.listRoots()) {
-            TreeItem<File> tempItem = new TreeItem<>(file, new ImageView(Data.FOLDER_ICON));
+            TreeItem<File> tempItem = new TreeItem<>(file);
             rootItem.getChildren().add(tempItem);
         }
         TreeViewListener.addSubItem(rootItem.getChildren());
