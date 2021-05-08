@@ -67,7 +67,8 @@ public class RenameEventHandler {
                     continue;
                 }
                 // 输入文件名与原文件名相同，直接返回
-                if (newFilename.equals(getFilePrefixName(targetImageNode.getImageFile().getName()))) {
+                String originalFileName = targetImageNode.getImageFile().getName();
+                if (newFilename.equals(originalFileName.substring(0, originalFileName.lastIndexOf('.')))) {
                     return;
                 }
 
@@ -103,6 +104,7 @@ public class RenameEventHandler {
         Scene scene = new Scene(renamePane, 380, 150);
         Stage stage = new Stage();
 
+        // 构建重命名多个文件的面板
         public RenameMultipleFiles() {
             renamePane.setHgap(10);
             renamePane.setVgap(10);
@@ -224,16 +226,6 @@ public class RenameEventHandler {
                 });
             }
         }
-    }
-
-    /**
-     * 获取文件前缀名
-     *
-     * @param fileName is the name of the file
-     * @return the prefix of the filename
-     */
-    private String getFilePrefixName(String fileName) {
-        return fileName.substring(0, fileName.lastIndexOf('.'));
     }
 
     /**
