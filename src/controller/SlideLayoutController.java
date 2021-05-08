@@ -64,11 +64,15 @@ public class SlideLayoutController {
     private void flashButtonOnAction() {
         resetPhoto();
         timeline.play();
+        enlargeButton.setDisable(true);
+        narrowButton.setDisable(true);
     }
 
     @FXML
     private void stopButtonOnAction() {
         timeline.stop();
+        enlargeButton.setDisable(false);
+        narrowButton.setDisable(false);
     }
 
     /**

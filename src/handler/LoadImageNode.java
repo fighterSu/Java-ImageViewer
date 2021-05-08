@@ -42,21 +42,21 @@ public class LoadImageNode extends Task<Number> {
                     if (this.isCancelled()) {
                         return;
                     }
-                    Data.mainLayoutController.getFlowPane().getChildren().add(tempNode.getBaseBox());
+                    Data.mainLayoutController.getFlowPane().getChildren().add(tempNode);
                     Data.sumOfImage += file.length();
                     Data.mainLayoutController.getTipText().setText(String.format("共 %d 张图片( %.2f B ) - 共选中 0 张图片",
                             Data.imageNodesList.size(), Data.sumOfImage));
-                    Data.mainLayoutController.getFolderInfo().setText("共 " + Data.imageNodesList.size() + " 张图片");
                 });
                 try {
                     // 睡眠一段时间，让UI线程处理其它任务
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
-                    if (isCancelled()) {
+                    if (this.isCancelled()) {
                         break;
                     }
                 }
             }
+            Data.mainLayoutController.getFolderInfo().setText("共 " + Data.imageNodesList.size() + " 张图片");
         }
         return null;
     }

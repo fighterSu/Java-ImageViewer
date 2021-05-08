@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -18,6 +17,7 @@ import modules.Popups;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Optional;
 
 /**
@@ -40,7 +40,7 @@ public class RenameEventHandler {
      * 重命名单个文件
      */
     private void renameSingleFiles() {
-        ImageNode targetImageNode = getSelectedImageNode()[0];
+        ImageNode targetImageNode = Data.selectedImageList.get(0);
         String targetImageName = targetImageNode.getImageFile().getName();
         TextInputDialog dialog = new TextInputDialog(
                 targetImageName.substring(0, targetImageName.lastIndexOf('.')));
@@ -73,9 +73,10 @@ public class RenameEventHandler {
 
                 Path targetFilePath = targetImageNode.getImageFile().toPath();
                 boolean renameSucceed = true;
+                String newFullName = newFilename + getFileSuffixName(targetImageNode.getImageFile().getName());
                 try {
-                    Files.move(targetFilePath, targetFilePath
-                            .resolveSibling(newFilename + getFileSuffixName(targetImageNode.getImageFile().getName())));
+                    Files.move(targetFilePath,
+                            targetFilePath.resolveSibling(newFullName));
                 } catch (IOException e) {
                     Popups.showExceptionDialog(e);
                     renameSucceed = false;
@@ -83,7 +84,7 @@ public class RenameEventHandler {
 
                 if (renameSucceed) {
                     Popups.createToolTipBox("重命名成功", "成功重命名选中文件", -1, -1);
-                    TreeViewListener.loadImage(Data.nowItem);
+                    targetImageNode.getNameLabel().setText(newFullName);
                 }
             }
             break;
@@ -101,8 +102,6 @@ public class RenameEventHandler {
         Button okButton = new Button("确定");
         Scene scene = new Scene(renamePane, 380, 150);
         Stage stage = new Stage();
-        // 获取选中的图片节点
-        ImageNode[] selectedImageNodes = getSelectedImageNode();
 
         public RenameMultipleFiles() {
             renamePane.setHgap(10);
@@ -132,6 +131,7 @@ public class RenameEventHandler {
         }
 
         public void setButtonOnAction() {
+            ArrayList<ImageNode> selectedImageList = Data.selectedImageList;
             okButton.setOnAction(actionEvent -> {
                 int startNumbers = 0;
                 int numberOfDigit = 0;
@@ -162,12 +162,12 @@ public class RenameEventHandler {
                     allInputsAreValid = false;
                 } else {
                     numberOfDigit = Integer.parseInt(numberOfDigits.getText());
-                    maxStartNumbers = (int) Math.pow(10, numberOfDigit) - selectedImageNodes.length;
+                    maxStartNumbers = (int) Math.pow(10, numberOfDigit) - selectedImageList.size();
                 }
 
                 if (startNumbers > maxStartNumbers) {
                     if (maxStartNumbers < 0) {
-                        warningMessage += "编号位数过少，最少为：" + (int) Math.ceil(Math.log10(selectedImageNodes.length)) + "位";
+                        warningMessage += "编号位数过少，最少为：" + (int) Math.ceil(Math.log10(selectedImageList.size())) + "位";
                     } else {
                         warningMessage += "起始编号过大，最大为：" + maxStartNumbers;
                     }
@@ -180,7 +180,7 @@ public class RenameEventHandler {
                     int indexOfImageFile = (int) Math.pow(10, numberOfDigit) + startNumbers;
                     boolean renameSucceed = true;
                     String imageNamePrefixName = imageNamePrefix.getText();
-                    for (ImageNode imageNode : selectedImageNodes) {
+                    for (ImageNode imageNode : selectedImageList) {
                         Path targetFilePath = imageNode.getImageFile().toPath();
                         String fileName = imageNamePrefixName + Integer.toString(indexOfImageFile).substring(1);
                         try {
@@ -244,24 +244,5 @@ public class RenameEventHandler {
      */
     private String getFileSuffixName(String fileName) {
         return fileName.substring(fileName.lastIndexOf('.'));
-    }
-
-    /**
-     * 获得选中的图片的ImageNode对象
-     *
-     * @return the array of selected ImageNode
-     */
-    private ImageNode[] getSelectedImageNode() {
-        ImageNode[] tempList = new ImageNode[Data.selectedImageList.size()];
-        int indexOfTargetImage = 0;
-        for (ImageView imageView : Data.selectedImageList) {
-            for (int i = 0; i < Data.imageNodesList.size(); i++) {
-                if (imageView == Data.imageNodesList.get(i).getImageView()) {
-                    tempList[indexOfTargetImage++] = Data.imageNodesList.get(i);
-                    break;
-                }
-            }
-        }
-        return tempList;
     }
 }

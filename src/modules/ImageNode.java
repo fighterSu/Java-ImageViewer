@@ -1,16 +1,14 @@
 package modules;
 
-import java.io.File;
-import java.io.IOException;
-
 import handler.ImageNodeEventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+
+import java.io.File;
 
 /**
  * this class is design a ImageNode
@@ -18,9 +16,9 @@ import javafx.scene.layout.VBox;
  *
  * @author Platina
  */
-public class ImageNode extends Node {
+public class ImageNode extends VBox {
     private final ImageView imageView;
-    private final VBox baseBox = new VBox(10);
+    private final Labeled nameLabel;
     private final File imageFile;
 
     public ImageNode(File imageFile) {
@@ -34,25 +32,16 @@ public class ImageNode extends Node {
         Labeled imageLabel = new Label();
         imageLabel.setGraphic(imageView);
         imageLabel.setAlignment(Pos.CENTER);
-        Labeled nameLabel = new Label();
+        nameLabel = new Label();
         nameLabel.setPrefSize(110, 10);
         nameLabel.setText(imageFile.getName());
         nameLabel.setAlignment(Pos.CENTER);
-        baseBox.setPrefSize(120, 120);
-        baseBox.getChildren().addAll(imageLabel, nameLabel);
-        baseBox.setAlignment(Pos.BOTTOM_CENTER);
-        baseBox.setOnMouseClicked(mouseEvent -> {
-            try {
-                ImageNodeEventHandler.setImageNodeMouseClickedEvent(mouseEvent, this);
-            } catch (IOException e) {
-                Popups.showExceptionDialog(e);
-            }
-        });
-        new MyContextMenu(baseBox, true);
-    }
-
-    public VBox getBaseBox() {
-        return baseBox;
+        this.getChildren().addAll(imageLabel, nameLabel);
+        this.setPrefSize(120, 120);
+        this.setAlignment(Pos.BOTTOM_CENTER);
+        this.setSpacing(10);
+        ImageNodeEventHandler.setImageNodeMouseClickedEvent(this);
+        new MyContextMenu(this, true);
     }
 
     public ImageView getImageView() {
@@ -61,5 +50,9 @@ public class ImageNode extends Node {
 
     public File getImageFile() {
         return imageFile;
+    }
+
+    public Labeled getNameLabel() {
+        return nameLabel;
     }
 }

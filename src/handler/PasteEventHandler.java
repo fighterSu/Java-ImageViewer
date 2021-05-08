@@ -17,38 +17,44 @@ public class PasteEventHandler {
         StringBuilder targetPath = new StringBuilder(Data.nowItem.getValue().getPath());
         // 是否在同一目录粘贴
         boolean inTheSameFolder = isInTheSameFolder(targetPath.toString());
-        // 粘贴成功
+        // 是否粘贴成功
         boolean pasteSucceed = true;
-        if (!targetPath.toString().equals(Data.lastTargetPath)) {
-            Data.numberOfRepeatedPaste = 0;
-        }
 
-        for (File file : Data.copyImageList) {
-            String fileName = file.getName();
+        for (File imageFile : Data.copyImageList) {
+            String imageFileName = imageFile.getName();
 
+            // 如果是粘贴在复制的那个文件夹，必定名字重复，直接先加个 - 副本
             if (inTheSameFolder) {
-                fileName = getFilePrefixName(fileName) + " - 副本" + getFileSuffixName(fileName);
-            }
-
-            while (isFileNameAlreadyExists(fileName)) {
-                String addedString;
-                if (!inTheSameFolder && Data.numberOfRepeatedPaste <= 1) {
-                    addedString = " - 副本";
-                } else {
-                    if (inTheSameFolder && Data.numberOfRepeatedPaste == 1) {
-                        Data.numberOfRepeatedPaste++;
-                    }
-                    addedString = String.format(" (%d)", Data.numberOfRepeatedPaste);
+                imageFileName = createNewFileName(imageFileName, " - 副本");
+            } else {
+                // 如果不是粘贴在复制的那个文件夹，并且名字已经存在了，先加一个 - 副本
+                if (isFileNameAlreadyExists(imageFileName)) {
+                    imageFileName = createNewFileName(imageFileName, " - 副本");
                 }
-                fileName = getFilePrefixName(fileName) + addedString + getFileSuffixName(fileName);
             }
 
+            // 如果加了 - 副本 还是重复，那么要确定编号序号 即类似 photo(d).jpg 之中的 d 到底是哪个数字
+            String addedString = "";
+            int serialNumber = 1;
+            while (isFileNameAlreadyExists(createNewFileName(imageFileName, addedString))) {
+                // 从 2 开始编号，因此采用 ++serialNumber
+                addedString = String.format(" (%d)", ++serialNumber);
+            }
+
+            // 根据添加字符串拼接新图片文件名
+            imageFileName = createNewFileName(imageFileName, addedString);
+
+
+            // 在非根目录粘贴时要给目标路径加个'\', 不然无法复制文件到真正的目标路径
             if (!targetPath.toString().endsWith("\\")) {
                 targetPath.append('\\');
             }
 
-            try (BufferedInputStream fileInput = new BufferedInputStream(new FileInputStream(file));
-                 BufferedOutputStream fileOutput = new BufferedOutputStream(new FileOutputStream(targetPath + fileName))) {
+            // 复制文件
+            try (BufferedInputStream fileInput =
+                         new BufferedInputStream(new FileInputStream(imageFile));
+                 BufferedOutputStream fileOutput =
+                         new BufferedOutputStream(new FileOutputStream(targetPath + imageFileName))) {
                 byte[] bytes = new byte[1024];
                 int i;
                 while ((i = fileInput.read(bytes)) != -1) {
@@ -62,14 +68,10 @@ public class PasteEventHandler {
             }
         }
 
-        TreeViewListener.loadImage(Data.nowItem);
-
         if (pasteSucceed) {
             Popups.createToolTipBox("粘贴图片成功", "成功粘贴所复制图片", -1, -1);
-            Data.numberOfRepeatedPaste++;
-            Data.lastTargetPath = targetPath.toString();
         }
-
+        TreeViewListener.loadImage(Data.nowItem);
     }
 
     /**
@@ -85,7 +87,7 @@ public class PasteEventHandler {
     }
 
     /**
-     * judge whether the fileName is already exists in target directory.
+     * 判断一个文件名是否已经在目录存在
      *
      * @param newFileName is the fileName needed to judge.
      * @return whether the fileName is already exists in target directory or
@@ -101,22 +103,15 @@ public class PasteEventHandler {
     }
 
     /**
-     * get the prefix of the fileName.
+     * 根据添加字符串拼接新图片文件名
      *
-     * @param fileName is the fileName.
-     * @return the prefix of the fileName.
+     * @param imageFileName is original image file name.
+     * @param addedString   is the string that will be added to the imageFileName
+     * @return the new imageFileName
      */
-    private String getFilePrefixName(String fileName) {
-        return fileName.substring(0, fileName.lastIndexOf('.'));
-    }
-
-    /**
-     * get the suffix of the fileName.
-     *
-     * @param fileName is the fileName.
-     * @return the suffix of the fileName.
-     */
-    private String getFileSuffixName(String fileName) {
-        return fileName.substring(fileName.lastIndexOf('.'));
+    private String createNewFileName(String imageFileName, String addedString) {
+        String prefixName = imageFileName.substring(0, imageFileName.lastIndexOf('.'));
+        String suffixName = imageFileName.substring(imageFileName.lastIndexOf('.'));
+        return prefixName + addedString + suffixName;
     }
 }

@@ -2,7 +2,6 @@ package handler;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
@@ -11,6 +10,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import modules.Data;
+import modules.ImageNode;
 
 /**
  * this class is used to add event handlers to flowPane
@@ -34,7 +34,7 @@ public class FlowPaneEventHandler {
      * selectedRectangle is used to judge
      * whether a imageNode is selected or not
      */
-    private final Rectangle selectRectangle = new Rectangle(0, 0, Paint.valueOf("#9FC1E3AA"));
+    private final Rectangle selectRectangle = new Rectangle(0, 0, Paint.valueOf("#7dbfffAA"));
 
     /**
      * 判断是否是在进行拖拽选择，在空白处释放时不清除图片选中状态
@@ -122,9 +122,9 @@ public class FlowPaneEventHandler {
             ImageNodeEventHandler.clearSelectedState();
             for (Node child : flowPane.getChildren()) {
                 if (isInSelectRectangle(child)) {
-                    VBox vBox = (VBox) child;
-                    vBox.setStyle("-fx-background-color: #DEDEDE");
-                    Data.selectedImageList.add((ImageView) ((Label) (vBox.getChildren().get(0))).getGraphic());
+                    ImageNode imageNode = (ImageNode) child;
+                    imageNode.setStyle("-fx-background-color: #DEDEDE");
+                    Data.selectedImageList.add(imageNode);
                 }
             }
             Data.mainLayoutController.getTipText().setText(String.format("共 %d 张图片( %.2f %s ) - 共选中 %d 张图片",

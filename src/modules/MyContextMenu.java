@@ -7,12 +7,9 @@ import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-
-import java.io.File;
 
 /**
  * @author Platina
@@ -20,6 +17,12 @@ import java.io.File;
 public class MyContextMenu {
     private ContextMenu contextMenu;
 
+    /**
+     * 根据节点 node 类型添加对应右键菜单
+     *
+     * @param node        is the target node needed to add context menu.
+     * @param isImageNode is just whether node is ImageNode or not.
+     */
     public MyContextMenu(Node node, boolean isImageNode) {
         if (isImageNode) {
             createImageMenu(node);
@@ -34,6 +37,7 @@ public class MyContextMenu {
         MenuItem copyItem = new MenuItem("复制");
         MenuItem renameItem = new MenuItem("重命名");
         contextMenu.getItems().addAll(deleteItem, copyItem, renameItem);
+        // 为节点添加右键事件，显示右键菜单
         node.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
             if (mouseEvent.getButton() == MouseButton.SECONDARY) {
                 contextMenu.show(node, mouseEvent.getScreenX(), mouseEvent.getScreenY());
@@ -52,24 +56,21 @@ public class MyContextMenu {
             }
         });
 
+        // 设置删除功能的快捷键
         KeyCombination deleteKeyCombination = new KeyCodeCombination(KeyCode.D, KeyCombination.CONTROL_DOWN);
         Data.primaryScene.getAccelerators().put(deleteKeyCombination, deleteItem::fire);
         deleteItem.setAccelerator(deleteKeyCombination);
+
 
         copyItem.setOnAction(actionEvent -> {
             if (Data.selectedImageList.isEmpty()) {
                 Popups.createToolTipBox("未选中图片", "请选中图片后再复制！", -1, -1);
             } else {
                 Data.copyImageList.clear();
-                for (ImageView imageView : Data.selectedImageList) {
-                    String imageUrl = imageView.getImage().getUrl();
-                    String imagePath = imageUrl.substring(imageUrl.indexOf(':') + 1);
-                    File imageFile = new File(imagePath);
-                    Data.copyImageList.add(imageFile);
+                for (ImageNode imageNode : Data.selectedImageList) {
+                    Data.copyImageList.add(imageNode.getImageFile());
                 }
                 Popups.createToolTipBox("复制成功", "已成功复制选中图片！", -1, -1);
-                Data.numberOfRepeatedPaste = 0;
-                Data.lastTargetPath = null;
             }
         });
 
@@ -118,8 +119,8 @@ public class MyContextMenu {
         selectAllItem.setOnAction(actionEvent -> {
             Data.selectedImageList.clear();
             for (ImageNode imageNode : Data.imageNodesList) {
-                imageNode.getBaseBox().setStyle("-fx-background-color: #DEDEDE");
-                Data.selectedImageList.add(imageNode.getImageView());
+                imageNode.setStyle("-fx-background-color: #DEDEDE");
+                Data.selectedImageList.add(imageNode);
                 Data.mainLayoutController.getTipText().setText(String.format("共 %d 张图片( %.2f %s ) - 共选中 %d 张图片",
                         Data.imageNodesList.size(), Data.sumOfImage, Data.unit, Data.selectedImageList.size()));
             }

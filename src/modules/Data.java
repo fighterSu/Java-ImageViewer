@@ -3,7 +3,6 @@ package modules;
 import controller.MainLayoutController;
 import javafx.scene.Scene;
 import javafx.scene.control.TreeItem;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -46,16 +45,6 @@ public class Data {
 	public static Stage primaryStage;
 
 	/**
-	 * 记录同一个文件夹里面，重复复制一批文件地次数，用于添加序号
-	 */
-	public static int numberOfRepeatedPaste;
-
-	/**
-	 * 记录上次粘贴目标文件夹，判断是否是在同一个文件夹里面复制
-	 */
-	public static String lastTargetPath = null;
-
-	/**
 	 * 定义电脑屏幕大小
 	 */
 	public static double screenWidth;
@@ -64,7 +53,7 @@ public class Data {
 	/**
 	 * 存放选中的图片
 	 */
-	public static ArrayList<ImageView> selectedImageList = new ArrayList<>();
+	public static ArrayList<ImageNode> selectedImageList = new ArrayList<>();
 
 	/**
 	 * 存放复制或者剪贴的图片
