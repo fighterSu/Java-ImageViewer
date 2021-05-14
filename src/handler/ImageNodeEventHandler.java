@@ -25,12 +25,14 @@ public class ImageNodeEventHandler {
                         imageNode.setStyle("-fx-background-color: #DEDEDE");
                     }
                 }
+
                 if (Data.selectedImageList.contains(imageNode)) {
                     Data.selectedImageList.remove(imageNode);
                     imageNode.setStyle("-fx-background-color: white");
                 } else {
                     Data.selectedImageList.add(imageNode);
                 }
+
                 Data.mainLayoutController.getTipText().setText(String.format("共 %d 张图片( %.2f %s ) - 共选中 %d 张图片",
                         Data.imageNodesList.size(), Data.sumOfImage, Data.unit, Data.selectedImageList.size()));
 

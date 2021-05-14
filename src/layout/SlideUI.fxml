@@ -1,35 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-
-<BorderPane style="-fx-background-color: white" fx:id="slideRootPane"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
             maxHeight="-Infinity" maxWidth="-Infinity"
-             minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SlideLayoutController">
-   <center>
-      <ImageView fx:id="photo" fitHeight="240.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
-   </center>
-   <bottom>
-      <GridPane alignment="CENTER" prefHeight="100.0" prefWidth="600.0" style="-fx-background-color: #FFFFFF" BorderPane.alignment="CENTER">
-        <columnConstraints>
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="430.0" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="538.0" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="538.0" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="538.0" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="538.0" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="538.0" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Button fx:id="flashButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#flashButtonOnAction" prefHeight="70.0" prefWidth="70.0" text="播放" GridPane.columnIndex="2" />
-            <Button fx:id="stopButton" cancelButton="true" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#stopButtonOnAction" prefHeight="70.0" prefWidth="70.0" text="停止" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="3" />
-            <Button fx:id="enlargeButton" contentDisplay="GRAPHIC_ONLY"
+            style="-fx-background-color: white" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/8"
+            fx:controller="controller.SlideLayoutController">
+    <center>
+        <ImageView fx:id="photo" fitHeight="240.0" fitWidth="400.0"
+                   pickOnBounds="true" preserveRatio="true"
+                   BorderPane.alignment="CENTER"/>
+    </center>
+    <bottom>
+        <GridPane alignment="CENTER" prefHeight="100.0" prefWidth="600.0"
+                  style="-fx-background-color: #FFFFFF"
+                  BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES"
+                                   maxWidth="430.0" minWidth="10.0"
+                                   prefWidth="100.0"/>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES"
+                                   maxWidth="538.0" minWidth="10.0"
+                                   prefWidth="100.0"/>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES"
+                                   maxWidth="538.0" minWidth="10.0"
+                                   prefWidth="100.0"/>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES"
+                                   maxWidth="538.0" minWidth="10.0"
+                                   prefWidth="100.0"/>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES"
+                                   maxWidth="538.0" minWidth="10.0"
+                                   prefWidth="100.0"/>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES"
+                                   maxWidth="538.0" minWidth="10.0"
+                                   prefWidth="100.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0"
+                                vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <Button fx:id="flashButton" contentDisplay="GRAPHIC_ONLY"
+                        mnemonicParsing="false" onAction="#flashButtonOnAction"
+                        prefHeight="70.0" prefWidth="70.0" text="播放"
+                        GridPane.columnIndex="2"/>
+                <Button fx:id="stopButton" cancelButton="true"
+                        contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false"
+                        onAction="#stopButtonOnAction" prefHeight="70.0"
+                        prefWidth="70.0" text="停止" textAlignment="CENTER"
+                        wrapText="true" GridPane.columnIndex="3"/>
+                <Button fx:id="enlargeButton" contentDisplay="GRAPHIC_ONLY"
                     mnemonicParsing="false" onAction="#enlargeButtonOnAction" prefHeight="70.0"
                     prefWidth="70.0" text="Button" />
             <Button fx:id="narrowButton" contentDisplay="GRAPHIC_ONLY"

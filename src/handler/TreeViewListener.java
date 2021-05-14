@@ -47,7 +47,7 @@ public class TreeViewListener {
     }
 
     /**
-     * 添加加载两层目录到点击节点事件
+     * 添加加载两层目录到展开节点事件
      */
     private void addMouseClickedEventHandler() {
         treeView.getRoot().addEventHandler(TreeItem.<File>branchExpandedEvent(), event -> {

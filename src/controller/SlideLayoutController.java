@@ -6,7 +6,6 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.transform.Scale;
 import javafx.util.Duration;
 import modules.Data;
@@ -19,7 +18,6 @@ import modules.Popups;
  */
 
 public class SlideLayoutController {
-    public BorderPane slideRootPane;
     public ImageView photo;
     public Button flashButton;
     public Button stopButton;
@@ -42,7 +40,7 @@ public class SlideLayoutController {
     Scale scale = new Scale(1, 1, 0, 0);
 
     /**
-     * 设置展示的ImageView的Image
+     * 设置展示的ImageView
      *
      * @param photo is the ImageView in the slide stage
      */
@@ -86,12 +84,10 @@ public class SlideLayoutController {
         KeyFrame keyFrame = new KeyFrame(Duration.millis(1500), event -> {
             indexOfImage++;
             // 实现循环播放
-            if (Data.imageNodesList != null && indexOfImage == Data.imageNodesList.size()) {
+            if (indexOfImage == Data.imageNodesList.size()) {
                 indexOfImage = 0;
             }
-            if (Data.imageNodesList != null) {
-                photo.setImage(Data.imageNodesList.get(indexOfImage).getImageView().getImage());
-            }
+            photo.setImage(Data.imageNodesList.get(indexOfImage).getImageView().getImage());
         });
         timeline = new Timeline(keyFrame);
         timeline.setCycleCount(Timeline.INDEFINITE);
@@ -103,7 +99,6 @@ public class SlideLayoutController {
                 timeline.pause();
             }
         });
-
     }
 
     @FXML

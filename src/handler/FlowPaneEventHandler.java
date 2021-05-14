@@ -37,11 +37,6 @@ public class FlowPaneEventHandler {
     private final Rectangle selectRectangle = new Rectangle(0, 0, Paint.valueOf("#7dbfffAA"));
 
     /**
-     * 判断是否是在进行拖拽选择，在空白处释放时不清除图片选中状态
-     */
-    private boolean isDragged;
-
-    /**
      * 初始化信息
      *
      * @param flowPane is the flowPane want to add event handlers
@@ -75,7 +70,6 @@ public class FlowPaneEventHandler {
 
         // 开始拖动，记录在拖动
         flowPane.setOnMouseDragged(mouseEvent -> {
-            isDragged = true;
             double nowMouseX = mouseEvent.getX();
             double nowMouseY = mouseEvent.getY();
 
@@ -156,13 +150,10 @@ public class FlowPaneEventHandler {
      */
     private void setMouseClickBlank() {
         flowPane.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-            if (!isDragged) {
                 Node clickNode = mouseEvent.getPickResult().getIntersectedNode();
                 if (!(clickNode instanceof Label) && !(clickNode instanceof Text) && !(clickNode instanceof VBox)) {
                     ImageNodeEventHandler.clearSelectedState();
                 }
-            }
-            isDragged = false;
         });
     }
 }

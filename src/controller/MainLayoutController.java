@@ -57,7 +57,7 @@ public class MainLayoutController {
         Data.screenWidth = screenRectangle.getWidth();
         Data.screenHeight = screenRectangle.getHeight();
 
-        // 获得自动生成的对象
+        // 获得自动生成的本类的实例对象，用于获取主界面主要节点
         Data.mainLayoutController = this;
 
         // 初始化根目录
@@ -75,7 +75,7 @@ public class MainLayoutController {
     }
 
     /**
-     * 初始化目录树的根目录
+     * 初始化目录树的根目录及目录
      */
     private void initRootDirectory() {
         TreeItem<File> rootItem = new TreeItem<>();
@@ -104,9 +104,13 @@ public class MainLayoutController {
 
         // 将顶部左VBox的宽度和目录树宽度绑定，实现右VBox和flowPane对齐
         topLeftBox.prefWidthProperty().bind(treeView.widthProperty());
-
     }
 
+    /**
+     * 定义幻灯片图标鼠标点击事件
+     *
+     * @param mouseEvent is the mouse event that we clicked on the flashIcon.
+     */
     @FXML
     private void flashIconMouseClickedEvent(MouseEvent mouseEvent) {
         if (mouseEvent.getButton() == MouseButton.PRIMARY) {

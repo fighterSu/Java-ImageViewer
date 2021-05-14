@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TreeView?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-
-<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0"
-            prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="rootPane"
+            maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0"
+            xmlns="http://javafx.com/javafx/11.0.1"
             fx:controller="controller.MainLayoutController">
     <center>
-        <SplitPane dividerPositions="0.25" BorderPane.alignment="CENTER">
+        <SplitPane dividerPositions="0.2679465776293823"
+                   BorderPane.alignment="CENTER">
             <items>
                 <TreeView fx:id="treeView" minWidth="-Infinity"/>
                 <AnchorPane fx:id="anchorPane">
                     <children>
-                        <ScrollPane fx:id="scrollPane"
-                                    style="-fx-border-color: white"
-                                    fitToHeight="true"
+                        <ScrollPane fx:id="scrollPane" fitToHeight="true"
                                     fitToWidth="true"
+                                    style="-fx-border-color: white"
                                     AnchorPane.bottomAnchor="0.0"
                                     AnchorPane.leftAnchor="0.0"
                                     AnchorPane.rightAnchor="0.0"

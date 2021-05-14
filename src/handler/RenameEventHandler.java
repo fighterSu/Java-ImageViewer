@@ -76,8 +76,7 @@ public class RenameEventHandler {
                 boolean renameSucceed = true;
                 String newFullName = newFilename + getFileSuffixName(targetImageNode.getImageFile().getName());
                 try {
-                    Files.move(targetFilePath,
-                            targetFilePath.resolveSibling(newFullName));
+                    Files.move(targetFilePath, targetFilePath.resolveSibling(newFullName));
                 } catch (IOException e) {
                     Popups.showExceptionDialog(e);
                     renameSucceed = false;
