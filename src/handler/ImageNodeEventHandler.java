@@ -8,8 +8,7 @@ import modules.Slide;
 import java.io.IOException;
 
 /**
- * this class is used to add MouseClickListener and
- * clear selected state of imageNode
+ * 定义图片节点的监听事件
  *
  * @author Platina
  */

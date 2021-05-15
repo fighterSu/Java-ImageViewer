@@ -1,29 +1,27 @@
 package modules;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
 import javafx.application.Platform;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 /**
+ * 定义了一些常用的弹窗
+ *
  * @author Platina
  */
 public class Popups {
 	/**
 	 * add dialog to prompt information
 	 *
-	 * @param title   is the title of the dialog
-	 * @param content is the content of the dialog
+	 * @param title   弹窗的标题
+	 * @param content 弹窗的内容
+	 * @param x       弹窗的 x 轴位置
+	 * @param y       弹窗的 y 轴位置
 	 */
 	public static void createToolTipBox(String title, String content, double x, double y) {
 		Dialog<String> dialog = new Dialog<>();

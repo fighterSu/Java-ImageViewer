@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 /**
- * this class is used to handle paste events
+ * 重命名图片文件
  *
  * @author Platina
  */

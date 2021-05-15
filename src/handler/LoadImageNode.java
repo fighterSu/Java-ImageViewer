@@ -9,7 +9,7 @@ import modules.ImageNode;
 import java.io.File;
 
 /**
- * this class is used to load images from selected directory
+ * 加载图片节点的多任务类
  *
  * @author Platina
  */

@@ -24,7 +24,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * the controller of MainUI.xml
+ * MainUI.xml 的控制器
  * 初始化数据集中的数据以及添加事件
  *
  * @author Platina
@@ -50,6 +50,9 @@ public class MainLayoutController {
     @FXML
     private Text tipText;
 
+    /**
+     * 初始化界面后，进行数据的初始化以及布局处理
+     */
     @FXML
     private void initialize() {
         // 获取桌面大小

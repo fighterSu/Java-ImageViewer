@@ -12,7 +12,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 /**
- * @author Platina
+ * 右键菜单功能设计
+ *
+ * @author Platina、lvqingfeng
  */
 public class MyContextMenu {
     private ContextMenu contextMenu;

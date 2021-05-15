@@ -7,7 +7,7 @@ import modules.Popups;
 import java.io.*;
 
 /**
- * this class is define the event handler for paste event
+ * 粘贴文件的相关处理
  *
  * @author Platina
  */

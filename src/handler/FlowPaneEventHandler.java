@@ -13,7 +13,7 @@ import modules.Data;
 import modules.ImageNode;
 
 /**
- * this class is used to add event handlers to flowPane
+ * 定义流式布局的监听事件
  *
  * @author Platina
  */
@@ -131,7 +131,6 @@ public class FlowPaneEventHandler {
     /**
      * @param node is the node that needs test whether it is in selectRectangle
      * @return whether the node is in selectRectangle
-     * @Target test whether the node is in selectRectangle or not
      */
     private boolean isInSelectRectangle(Node node) {
         double nodeHalfSize = 60;

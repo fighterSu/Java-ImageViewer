@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
+ * 主类，加载界面，进行数据初始化
+ *
  * @author Platina
  */
 public class Main extends Application {

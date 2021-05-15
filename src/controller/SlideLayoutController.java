@@ -5,6 +5,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.transform.Scale;
 import javafx.util.Duration;
@@ -12,7 +13,7 @@ import modules.Data;
 import modules.Popups;
 
 /**
- * the class for handling slide stage
+ * SlideUI.xml 的控制器
  *
  * @author Platina, LiJiaHao
  */
@@ -42,13 +43,21 @@ public class SlideLayoutController {
     /**
      * 设置展示的ImageView
      *
-     * @param photo is the ImageView in the slide stage
+     * @param image is the ImageView in the slide stage
      */
-    public void setPhoto(ImageView photo) {
-        this.photo = photo;
+    public void setPhoto(Image image) {
+        photo.setImage(image);
         photo.getTransforms().add(scale);
+        photo.setSmooth(true);
+        photo.setCache(true);
+        photo.setPreserveRatio(true);
+        photo.setFitWidth(0.5 * Data.screenWidth);
+        photo.setFitHeight(0.5 * Data.screenHeight);
     }
 
+    /**
+     * 初始化界面后，进行按钮属性初始化
+     */
     @FXML
     private void initialize() {
         // 初始化按钮的图片和布局
@@ -87,7 +96,7 @@ public class SlideLayoutController {
             if (indexOfImage == Data.imageNodesList.size()) {
                 indexOfImage = 0;
             }
-            photo.setImage(Data.imageNodesList.get(indexOfImage).getImageView().getImage());
+            photo.setImage(Data.imageNodesList.get(indexOfImage).getImage());
         });
         timeline = new Timeline(keyFrame);
         timeline.setCycleCount(Timeline.INDEFINITE);
@@ -137,7 +146,7 @@ public class SlideLayoutController {
             if (indexOfImage == 0) {
                 Popups.createToolTipBox("第一张图片", "第一张图片", -1, -1);
             }
-            photo.setImage(Data.imageNodesList.get(indexOfImage).getImageView().getImage());
+            photo.setImage(Data.imageNodesList.get(indexOfImage).getImage());
         }
     }
 
@@ -151,7 +160,7 @@ public class SlideLayoutController {
             if (indexOfImage == Data.imageNodesList.size() - 1) {
                 Popups.createToolTipBox("最后一张图片", "最后一张图片", -1, -1);
             }
-            photo.setImage(Data.imageNodesList.get(indexOfImage).getImageView().getImage());
+            photo.setImage(Data.imageNodesList.get(indexOfImage).getImage());
         }
     }
 

@@ -11,8 +11,7 @@ import java.nio.file.Files;
 import java.util.Optional;
 
 /**
- * the class is used to delete a image file
- * and judge whether delete success or not
+ * 删除某个文件，并判断是否删除成功
  *
  * @author Platina
  */

@@ -11,19 +11,19 @@ import javafx.scene.layout.VBox;
 import java.io.File;
 
 /**
- * this class is design a ImageNode
- * and inits the node which will be displayed in flowPane
+ * 自定义图片节点
  *
  * @author Platina
  */
 public class ImageNode extends VBox {
-    private final ImageView imageView;
+    private final Image image;
     private final Labeled nameLabel;
     private final File imageFile;
 
     public ImageNode(File imageFile) {
         this.imageFile = imageFile;
-        imageView = new ImageView(new Image("file:" + imageFile.getAbsolutePath()));
+        image = new Image("file:" + imageFile.getAbsolutePath());
+        ImageView imageView = new ImageView(image);
         imageView.setSmooth(true);
         imageView.setCache(true);
         imageView.setFitWidth(110);
@@ -44,8 +44,8 @@ public class ImageNode extends VBox {
         new MyContextMenu(this, true);
     }
 
-    public ImageView getImageView() {
-        return imageView;
+    public Image getImage() {
+        return image;
     }
 
     public File getImageFile() {
