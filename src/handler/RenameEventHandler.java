@@ -84,7 +84,7 @@ public class RenameEventHandler {
 
                 if (renameSucceed) {
                     Popups.createToolTipBox("重命名成功", "成功重命名选中文件", -1, -1);
-                    targetImageNode.getNameLabel().setText(newFullName);
+                    TreeViewListener.loadImage(Data.nowItem);
                 }
             }
             break;
@@ -183,10 +183,9 @@ public class RenameEventHandler {
                     String imageNamePrefixName = imageNamePrefix.getText();
                     for (ImageNode imageNode : selectedImageList) {
                         Path targetFilePath = imageNode.getImageFile().toPath();
-                        String fileName = imageNamePrefixName + Integer.toString(indexOfImageFile).substring(1);
+                        String fileName = imageNamePrefixName + Integer.toString(indexOfImageFile).substring(1) + getFileSuffixName(imageNode.getImageFile().getName());
                         try {
-                            Files.move(targetFilePath, targetFilePath
-                                    .resolveSibling(fileName + getFileSuffixName(imageNode.getImageFile().getName())));
+                            Files.move(targetFilePath, targetFilePath.resolveSibling(fileName));
                         } catch (IOException e) {
                             stage.close();
                             Popups.showExceptionDialog(e);
@@ -198,8 +197,8 @@ public class RenameEventHandler {
 
                     if (renameSucceed) {
                         Popups.createToolTipBox("重命名成功", "成功重命名选中文件", stage.getX(), stage.getY() + stage.getHeight() + 10);
-                        stage.close();
                         TreeViewListener.loadImage(Data.nowItem);
+                        stage.close();
                     }
                 }
             });
